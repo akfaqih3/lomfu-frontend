@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lomfu_app/config/routes.dart';
+import 'package:lomfu_app/themes/app_theme.dart';
 
-
-class HomeApp extends StatelessWidget {
-  const HomeApp({super.key});
-
+class AppHome extends StatelessWidget {
+  const AppHome({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Text("Hi am Ak"),
-      ),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      initialRoute: AppRoutes.initialRoute,
+      getPages: AppRoutes.getPages,
     );
   }
 }
