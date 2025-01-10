@@ -15,4 +15,6 @@ class AppColors {
       Color(0xFFFFFFFF); // النصوص الفاتحة في الوضع الداكن
   static const Color darkButton = Color(0xFF3D5CFF); // لون الأزرار
   static const Color darkAccent = Color(0xFFFFFFFF); // النصوص داخل الأزرار
+
+  static const Color dangerColor = Color(0xFFD32F2F);
 }

@@ -3,34 +3,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/config/routes.dart';
+import 'package:lomfu_app/modules/onboarding/onboarding_controller.dart';
 
 class OnboardingPage extends StatelessWidget {
   final PageController _pageController = PageController();
-  final currentPage = 0.obs;
-
-  final List<Map<String, String>> onboardingData = [
-    {
-      "image": "assets/images/svg/onboarding1.svg",
-      "title": "Numerous free trial courses",
-      "description": "Free courses for you to find your way to learning ",
-    },
-    {
-      "image": "assets/images/svg/onboarding2.svg",
-      "title": "Quick and easy learning",
-      "description":
-          "Easy and fast learning at any time to help you improve various skills",
-    },
-    {
-      "image": "assets/images/svg/onboarding3.svg",
-      "title": "Create your own study plan",
-      "description":
-          "Study according to the study plan, make study more motivated",
-    },
-  ];
+  final _controller = Get.put(OnboardingController());
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Get.isDarkMode;
+    final currentPage = _controller.currentPage;
+    final onboardingData = _controller.onboardingData;
+
     return Scaffold(
       body: Column(
         children: [
