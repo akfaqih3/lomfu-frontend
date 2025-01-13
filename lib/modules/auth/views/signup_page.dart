@@ -8,7 +8,7 @@ import 'package:lomfu_app/modules/auth/controllers/signup_controller.dart';
 import 'package:lomfu_app/helpers/validators.dart';
 
 class SignUpPage extends StatelessWidget {
-  final SignupController controller = Get.put(SignupController());
+  final SignupController controller = SignupController();
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -31,41 +31,33 @@ class SignUpPage extends StatelessWidget {
               children: [
                 Text(
                   "Sign Up",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: isDarkMode ? AppColors.darkText : AppColors.lightText,
-                  ),
+                  style: Get.textTheme.titleLarge,
                 ),
                 SizedBox(height: 5),
                 Text(
                   "Enter your details below to sign up",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: Get.textTheme.bodySmall,
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 40),
                 Form(
                   key: _formKey,
                   child: Column(
                     children: [
                       CustomTextFormField(
-                        hintText: 'Name',
+                        labelText: 'Name',
                         controller: nameController,
                         prefixIcon: Icons.person,
                         validator: validateName,
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        hintText: 'Email',
+                        labelText: 'Email',
                         controller: emailController,
                         prefixIcon: Icons.email,
                         validator: validateEmail,
                       ),
                       SizedBox(height: 20),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8),
                         child: Obx(() {
                           return DropdownButtonFormField(
                             value: controller.selectedRole.value,
@@ -74,7 +66,8 @@ class SignUpPage extends StatelessWidget {
                               return DropdownMenuItem(
                                 value: e,
                                 child: Container(
-                                  child: Text(e),
+                                  child:
+                                      Text(e, style: Get.textTheme.bodyLarge),
                                 ),
                               );
                             }).toList(),
@@ -82,25 +75,33 @@ class SignUpPage extends StatelessWidget {
                               controller.selectedRole(value);
                             },
                             decoration: InputDecoration(
+                              floatingLabelAlignment:
+                                  FloatingLabelAlignment.center,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 15),
+                                horizontal: 15,
+                                vertical: 10,
+                              ),
+                              alignLabelWithHint: true,
+                              labelText: 'Role',
+                              labelStyle: Get.textTheme.bodyLarge!
+                                  .copyWith(fontSize: 18),
                             ),
                           );
                         }),
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        hintText: 'Phone',
+                        labelText: 'Phone',
                         controller: phoneController,
                         prefixIcon: Icons.phone,
                         validator: validatephoneNumber,
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        hintText: 'Password',
+                        labelText: 'Password',
                         controller: passwordController,
                         prefixIcon: Icons.lock,
                         isPassword: true,
@@ -108,7 +109,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        hintText: 'Confirm Password',
+                        labelText: 'Confirm Password',
                         controller: confirmPasswordController,
                         prefixIcon: Icons.lock,
                         isPassword: true,
@@ -117,7 +118,6 @@ class SignUpPage extends StatelessWidget {
                               value, passwordController.text);
                         },
                       ),
-                      SizedBox(height: 20),
                       Row(
                         children: [
                           Obx(() {
@@ -136,7 +136,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       Obx(() {
                         if (controller.isLoading.value) {
                           return const CircularProgressIndicator(
@@ -155,11 +155,9 @@ class SignUpPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: Text("Create account",
-                              style: TextStyle(
-                                  color: isDarkMode
-                                      ? AppColors.darkText
-                                      : AppColors.lightText)),
+                          child: Text(
+                            "Create account",
+                          ),
                         );
                       }),
                     ],

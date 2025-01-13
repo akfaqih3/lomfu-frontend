@@ -15,15 +15,6 @@ class SignupController extends GetxController {
 
   final selectedRole = roles.keys.first.obs;
 
-  /*
-  "name": "string",
-  "email": "user@example.com",
-  "phone": "string",
-  "role": "teacher",
-  "password": "string",
-  "confirm_password": "string"
-
-  */
 
   Future<void> signup(
     String name,
@@ -58,7 +49,6 @@ class SignupController extends GetxController {
         );
       }
     } catch (e) {
-      print(e);
       Get.snackbar("Error", "Signup Failed");
     }
     finally{
@@ -68,6 +58,5 @@ class SignupController extends GetxController {
 
   void onAgreeToTermsChanged(bool? value) {
     agreeToTerms(value ?? agreeToTerms.value);
-    update();
   }
 }

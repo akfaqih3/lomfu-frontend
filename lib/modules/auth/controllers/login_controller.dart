@@ -8,20 +8,7 @@ import 'package:lomfu_app/config/constants/api_const.dart';
 class LoginController extends GetxController {
   final APIService _apiService = APIService();
   final isLoading = false.obs;
-  // String? accessToken;
-  // String? refreshToken;
-
-  // @override
-  // void onInit() async {
-  //   super.onInit();
-  //   accessToken = await TokenStorage.getAccessToken();
-  //   refreshToken = await TokenStorage.getRefreshToken();
-
-  //   if (accessToken != null) {
-  //     Get.offAllNamed(Pages.home);
-  //   }
-  // }
-
+  
   void login(String email, String password) async {
    try{
     isLoading(true);
@@ -42,7 +29,6 @@ class LoginController extends GetxController {
       Get.snackbar("Error", response.body["message"]);
     }
    }catch(e){
-     print(e);
    }finally{
      isLoading(false);
    }
@@ -60,7 +46,6 @@ class LoginController extends GetxController {
         Get.snackbar("Error", response.body["message"]);
       }
     } catch (e) {
-      print(e);
     }
   }
 }

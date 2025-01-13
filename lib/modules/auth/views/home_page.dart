@@ -5,7 +5,7 @@ import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
 
 class HomePage extends StatelessWidget {
-  final LoginController _controller = Get.put(LoginController());
+  final LoginController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Get.isDarkMode;
@@ -14,12 +14,12 @@ class HomePage extends StatelessWidget {
           title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Home"),
+          const Text("Home"),
           InkWell(
               onTap: () {
                 _controller.logout();
               },
-              child: Icon(Icons.logout))
+              child: const Icon(Icons.logout))
         ],
       )),
       body: Padding(
@@ -35,8 +35,8 @@ class HomePage extends StatelessWidget {
                 color: isDarkMode ? AppColors.darkText : AppColors.lightText,
               ),
             ),
-            SizedBox(height: 30),
-            Text(
+            const SizedBox(height: 30),
+            const Text(
               "Home",
               style: TextStyle(
                 fontSize: 16,

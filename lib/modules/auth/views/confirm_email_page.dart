@@ -4,11 +4,11 @@ import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/modules/auth/controllers/confirm_email_controller.dart';
 
 class ConfirmEmailPage extends StatelessWidget {
-  final ConfirmEmailController controller = Get.put(ConfirmEmailController());
+  final ConfirmEmailController controller = ConfirmEmailController();
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDarkMode = Get.isDarkMode;
 
     return Scaffold(
       appBar: AppBar(
@@ -92,10 +92,9 @@ class ConfirmEmailPage extends StatelessWidget {
                   children: [
                     const Text("Don't recieve code? "),
                     Obx(() {
-                      
-                      if (controller.resend_after.value > 0) {
+                      if (controller.resendAfter.value > 0) {
                         return Text(
-                          "${controller.resend_after.value}",
+                          "${controller.resendAfter.value}",
                           style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold),
@@ -129,7 +128,7 @@ class ConfirmEmailPage extends StatelessWidget {
                           )
                         : ElevatedButton(
                             onPressed: () {
-                               controller.verifyAccount();
+                              controller.verifyAccount();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
@@ -138,7 +137,7 @@ class ConfirmEmailPage extends StatelessWidget {
                             ),
                             child: Text(
                               "Verify Account",
-                              style: TextStyle(color: AppColors.lightAccent),
+                              style: TextStyle(color: AppColors.lightText),
                             ),
                           );
                   }),

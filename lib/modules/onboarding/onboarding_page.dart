@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/modules/onboarding/onboarding_controller.dart';
+import 'package:lomfu_app/themes/app_theme.dart';
 
 class OnboardingPage extends StatelessWidget {
   final PageController _pageController = PageController();
-  final _controller = Get.put(OnboardingController());
+  final _controller = OnboardingController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,16 +86,14 @@ class OnboardingPage extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Get.offNamed(
-                          Pages.login); // الانتقال مباشرة إلى شاشة تسجيل الدخول
+                      Get.offNamed(Pages.login);
                     },
                     child: Text("Skip"),
                   ),
                   ElevatedButton(
                     onPressed: currentPage.value == onboardingData.length - 1
                         ? () {
-                            Get.offNamed(Pages
-                                .login); // إذا كانت آخر صفحة، الانتقال إلى تسجيل الدخول
+                            Get.offNamed(Pages.login);
                           }
                         : () {
                             _pageController.nextPage(

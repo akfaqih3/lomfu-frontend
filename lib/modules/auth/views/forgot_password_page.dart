@@ -7,10 +7,11 @@ import 'package:lomfu_app/modules/auth/controllers/forgot_password_controller.da
 import 'package:lomfu_app/helpers/validators.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
-  final ForgotPasswordController controller =
-      Get.put(ForgotPasswordController());
+  final ForgotPasswordController controller = ForgotPasswordController();
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+
+  ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +44,14 @@ class ForgotPasswordPage extends StatelessWidget {
                         isDarkMode ? AppColors.darkText : AppColors.lightText,
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Form(
                     key: _formKey,
                     child: Column(
                       children: [
                         CustomTextFormField(
                           controller: emailController,
-                          hintText: "Email",
+                          labelText: "Email",
                           prefixIcon: Icons.email,
                           validator: validateEmail,
                         ),
@@ -58,7 +59,8 @@ class ForgotPasswordPage extends StatelessWidget {
                             alignment: Alignment.centerRight,
                             child: Obx(() {
                               return controller.isLoading.value
-                                  ? const CircularProgressIndicator(color :AppColors.primary)
+                                  ? const CircularProgressIndicator(
+                                      color: AppColors.primary)
                                   : ElevatedButton(
                                       onPressed: _forgotPassword,
                                       child: const Text(
@@ -73,7 +75,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account? "),
+                    const Text("Don't have an account? "),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(Pages.signUp);

@@ -14,7 +14,7 @@ class ConfirmEmailController extends GetxController {
 
   final isLoading = false.obs;
   final isResending = false.obs;
-  final resend_after = 0.obs;
+  final resendAfter = 0.obs;
 
   String? email;
 
@@ -79,24 +79,14 @@ class ConfirmEmailController extends GetxController {
   }
 
   void timerToResend(int seconds) {
-    resend_after(seconds);
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      if (resend_after.value == 0) {
+    resendAfter(seconds);
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (resendAfter.value == 0) {
         timer.cancel();
         isResending(false);
       }
-      resend_after(resend_after.value - 1);
+      resendAfter(resendAfter.value - 1);
     });
   }
 
-  @override
-  void onClose() {
-    for (var node in focusNodes) {
-      node.dispose();
-    }
-    for (var controller in textControllers) {
-      controller.dispose();
-    }
-    super.onClose();
-  }
 }

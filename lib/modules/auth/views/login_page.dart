@@ -8,13 +8,12 @@ import 'package:lomfu_app/modules/auth/controllers/login_controller.dart';
 import 'package:lomfu_app/helpers/validators.dart';
 
 class LoginPage extends StatelessWidget {
-  final LoginController _controller = Get.put(LoginController());
+  final LoginController _controller = LoginController();
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Get.isDarkMode;
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -25,27 +24,23 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   "Log In",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: isDarkMode ? AppColors.darkText : AppColors.lightText,
-                  ),
+                  style: Get.textTheme.titleLarge,
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 80),
                 Form(
                     key: _formKey,
                     child: Column(
                       children: [
                         CustomTextFormField(
                           controller: emailController,
-                          hintText: "Email",
+                          labelText: "Email",
                           prefixIcon: Icons.email,
                           validator: validateEmail,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         CustomTextFormField(
                           controller: passwordController,
-                          hintText: "Password",
+                          labelText: "Password",
                           prefixIcon: Icons.lock,
                           isPassword: true,
                           validator: validatePassword,
@@ -56,12 +51,10 @@ class LoginPage extends StatelessWidget {
                             onPressed: () {
                               Get.toNamed(Pages.forgotPassword);
                             },
-                            child: const Text(
-                              "Forgot password?",
-                            ),
+                            child: Text("Forgot password?",
+                                style: Get.textTheme.bodyMedium),
                           ),
                         ),
-                        const SizedBox(height: 20),
                         Obx(() {
                           return _controller.isLoading.value
                               ? const CircularProgressIndicator()
@@ -69,13 +62,12 @@ class LoginPage extends StatelessWidget {
                                   onPressed: () {
                                     _login();
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(double.infinity, 50),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
                                   child: const Text("Log in"),
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize:
+                                        const Size(double.infinity, 50),
+                                    backgroundColor: AppColors.primary,
+                                  ),
                                 );
                         }),
                       ],
@@ -89,10 +81,10 @@ class LoginPage extends StatelessWidget {
                       onTap: () {
                         Get.toNamed(Pages.signUp);
                       },
-                      child: const Text(
+                      child: Text(
                         "Sign up",
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                        style: Get.textTheme.bodyLarge!
+                            .copyWith(color: AppColors.primary),
                       ),
                     ),
                   ],
@@ -100,7 +92,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 const Text(
                   "Or log in with",
-                  style: TextStyle(color: Colors.grey),
+                  // style: TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(height: 20),
                 Row(
