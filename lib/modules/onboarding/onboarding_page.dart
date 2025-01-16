@@ -8,7 +8,7 @@ import 'package:lomfu_app/themes/app_theme.dart';
 
 class OnboardingPage extends StatelessWidget {
   final PageController _pageController = PageController();
-  final _controller = OnboardingController();
+  final _controller = Get.put(OnboardingController());
 
   @override
   Widget build(BuildContext context) {

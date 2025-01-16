@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:lomfu_app/modules/onboarding/onboarding_page.dart';
 import 'package:lomfu_app/modules/auth/views/login_page.dart';
 import 'package:lomfu_app/modules/auth/views/signup_page.dart';
-import 'package:lomfu_app/modules/auth/views/home_page.dart';
+import 'package:lomfu_app/modules/home/views/home_page.dart';
 import 'package:lomfu_app/modules/auth/views/confirm_email_page.dart';
 import 'package:lomfu_app/modules/auth/views/forgot_password_page.dart';
 import 'package:lomfu_app/modules/auth/views/password_reset_page.dart';
