@@ -6,6 +6,7 @@ import 'package:lomfu_app/modules/home/views/home_page.dart';
 import 'package:lomfu_app/modules/auth/views/confirm_email_page.dart';
 import 'package:lomfu_app/modules/auth/views/forgot_password_page.dart';
 import 'package:lomfu_app/modules/auth/views/password_reset_page.dart';
+import 'package:lomfu_app/modules/teacher/views/course_list_page.dart';
 
 class Pages {
   static const home = '/home';
@@ -15,6 +16,8 @@ class Pages {
   static const confirmEmail = '/confirmEmail';
   static const forgotPassword = '/forgotPassword';
   static const passwordReset = '/passwordReset';
+
+  static const courseList = '/courseList';
 }
 
 class AppRoutes {
@@ -28,5 +31,7 @@ class AppRoutes {
     GetPage(name: Pages.forgotPassword, page: () => ForgotPasswordPage()),
     GetPage(name: Pages.passwordReset, page: () => PasswordResetPage()),
     GetPage(name: Pages.home, page: () => HomePage()),
+
+    GetPage(name: Pages.courseList, page: () => CourseListPage()),
   ];
 }
