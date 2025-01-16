@@ -19,7 +19,12 @@ class Endpoints {
   static String register = "$apiKey$version${apps['accounts']}register/";
   static String verifyEmail = "$apiKey$version${apps['accounts']}otp-verify/";
   static String resendOTP = "$apiKey$version${apps['accounts']}otp-send/";
-  static String forgotPassword ="$apiKey$version${apps['accounts']}password-reset/";
-  static String resetPassword ="$apiKey$version${apps['accounts']}password-reset/confirm/";
+  static String forgotPassword =
+      "$apiKey$version${apps['accounts']}password-reset/";
+  static String resetPassword =
+      "$apiKey$version${apps['accounts']}password-reset/confirm/";
   static String subjects = "$apiKey$version${apps['courses']}subjects/";
+
+  //teachers endpoints
+  static String teachersCourses = "$apiKey$version${apps['teachers']}courses/";
 }

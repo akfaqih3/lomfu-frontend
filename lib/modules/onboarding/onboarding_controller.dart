@@ -4,7 +4,7 @@ import 'package:lomfu_app/helpers/token_storage.dart';
 
 class OnboardingController extends GetxController {
   final currentPage = 0.obs;
-  
+
   String? accessToken;
   String? refreshToken;
 
@@ -15,7 +15,7 @@ class OnboardingController extends GetxController {
     refreshToken = await TokenStorage.getRefreshToken();
 
     if (accessToken != null) {
-      Get.offAllNamed(Pages.home);
+      Get.offAllNamed(Pages.courseList);
     }
   }
 

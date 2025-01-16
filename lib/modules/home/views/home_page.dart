@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Image.network(
-                                      "${baseUrl + subject.photo!}",
+                                      baseUrl + subject.photo!,
                                       width: 100,
                                       height: 100,
                                     ),
