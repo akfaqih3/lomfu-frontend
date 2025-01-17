@@ -20,4 +20,14 @@ class Cache {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
   }
+
+  static Future<void> setBool(String key, bool value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(key, value);
+  }
+
+  static Future<bool?> getBool(String key) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(key);
+  }
 }

@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
   final HomeController _controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Get.isDarkMode;
     return Scaffold(
         appBar: AppBar(
             title: Row(

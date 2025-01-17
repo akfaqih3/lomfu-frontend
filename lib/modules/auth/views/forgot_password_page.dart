@@ -5,6 +5,7 @@ import 'package:lomfu_app/widgets/cutom_text_field.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/modules/auth/controllers/forgot_password_controller.dart';
 import 'package:lomfu_app/helpers/validators.dart';
+import 'package:lomfu_app/widgets/custom_app_bar.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   final ForgotPasswordController controller = ForgotPasswordController();
@@ -18,16 +19,7 @@ class ForgotPasswordPage extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,
-              color: isDarkMode ? AppColors.darkText : AppColors.lightText),
-          onPressed: () {
-            Get.back(); // العودة إلى الشاشة السابقة
-          },
-        ),
-      ),
+      appBar: CustomAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -37,12 +29,7 @@ class ForgotPasswordPage extends StatelessWidget {
               children: [
                 Text(
                   "Forgot Password",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color:
-                        isDarkMode ? AppColors.darkText : AppColors.lightText,
-                  ),
+                  style: Get.textTheme.titleLarge,
                 ),
                 const SizedBox(height: 30),
                 Form(
@@ -54,6 +41,9 @@ class ForgotPasswordPage extends StatelessWidget {
                           labelText: "Email",
                           prefixIcon: Icons.email,
                           validator: validateEmail,
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Align(
                             alignment: Alignment.centerRight,

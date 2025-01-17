@@ -5,6 +5,7 @@ import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/modules/onboarding/onboarding_controller.dart';
 import 'package:lomfu_app/themes/app_theme.dart';
+import 'package:lomfu_app/themes/app_theme_controller.dart';
 
 class OnboardingPage extends StatelessWidget {
   final PageController _pageController = PageController();
@@ -12,7 +13,6 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Get.isDarkMode;
     final currentPage = _controller.currentPage;
     final onboardingData = _controller.onboardingData;
 
@@ -39,7 +39,7 @@ class OnboardingPage extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: isDarkMode
+                            color: Get.isDarkMode
                                 ? AppColors.lightText
                                 : AppColors.primary),
                         textAlign: TextAlign.center,

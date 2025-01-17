@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/themes/colors.dart';
+import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
 import 'package:lomfu_app/widgets/social_login_button.dart';
 import 'package:lomfu_app/config/routes.dart';
@@ -12,9 +13,11 @@ class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -92,7 +95,6 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 const Text(
                   "Or log in with",
-                  // style: TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(height: 20),
                 Row(

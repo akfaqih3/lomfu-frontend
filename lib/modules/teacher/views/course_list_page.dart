@@ -3,27 +3,15 @@ import 'package:get/get.dart';
 import 'package:lomfu_app/config/constants/api_const.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
 import 'package:lomfu_app/themes/colors.dart';
+import 'package:lomfu_app/widgets/custom_app_bar.dart';
 
 class CourseListPage extends StatelessWidget {
   final _controller = Get.put(CourseController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          "Courses",
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {},
-          ),
-        ],
+      appBar: CustomAppBar(
+        title: Text("Courses"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

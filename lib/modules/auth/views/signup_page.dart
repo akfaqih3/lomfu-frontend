@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/config/routes.dart';
@@ -19,8 +19,8 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Get.isDarkMode;
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -191,12 +191,13 @@ class SignUpPage extends StatelessWidget {
   void _signup() {
     if (_formKey.currentState!.validate()) {
       controller.signup(
-          nameController.text,
-          emailController.text,
-          controller.selectedRole.value,
-          phoneController.text,
-          passwordController.text,
-          confirmPasswordController.text);
+        nameController.text,
+        emailController.text,
+        controller.selectedRole.value,
+        phoneController.text,
+        passwordController.text,
+        confirmPasswordController.text,
+      );
     }
   }
 }
