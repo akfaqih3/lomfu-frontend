@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:lomfu_app/modules/teacher/models/course_model.dart';
 import 'package:lomfu_app/API/api_service.dart';
-import 'package:lomfu_app/config/constants/api_const.dart';
+import 'package:lomfu_app/API/api_const.dart';
+import 'package:lomfu_app/API/api_exceptions.dart';
 
 class CourseController extends GetxController {
   final APIService _apiService = APIService();
@@ -26,8 +27,8 @@ class CourseController extends GetxController {
       } else {
         Get.snackbar("Error", "REQUEST BAD");
       }
-    } catch (e) {
-      print(e);
+    } on ApiExceptions catch (e) {
+      errorHandler(e);
     } finally {
       loading(false);
     }

@@ -16,6 +16,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppBar(),
       body: Center(
@@ -55,7 +56,9 @@ class LoginPage extends StatelessWidget {
                               Get.toNamed(Pages.forgotPassword);
                             },
                             child: Text("Forgot password?",
-                                style: Get.textTheme.bodyMedium),
+                                style: Get.textTheme.titleSmall!.copyWith(
+                                    color: isDarkMode? AppColors.darkText:AppColors.primary,
+                                )),
                           ),
                         ),
                         Obx(() {
@@ -79,14 +82,15 @@ class LoginPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account? "),
+                    Text("Don't have an account? ",
+                    style: Get.textTheme.labelMedium,),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(Pages.signUp);
+                        Get.offNamed(Pages.signUp);
                       },
                       child: Text(
                         "Sign up",
-                        style: Get.textTheme.bodyLarge!
+                        style: Get.textTheme.titleMedium!
                             .copyWith(color: AppColors.primary),
                       ),
                     ),

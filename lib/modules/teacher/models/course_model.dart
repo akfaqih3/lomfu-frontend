@@ -1,3 +1,5 @@
+import 'package:lomfu_app/API/api_const.dart ';
+
 class CourseModel {
   final int id;
   final String title;
@@ -17,12 +19,12 @@ class CourseModel {
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
-      id: json['id'],
-      title: json['title'],
-      subject: json['subject'],
-      overview: json['overview'],
-      photo: json['photo'],
-      createdAt: json['created'],
+      id: json[APIKeys.courseId],
+      title: json[APIKeys.courseTitle],
+      subject: json[APIKeys.courseSubject],
+      overview: json[APIKeys.courseOverview],
+      photo: json[APIKeys.coursePhoto],
+      createdAt: json[APIKeys.courseCreated],
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_service.dart';
 import 'package:lomfu_app/modules/home/models/subject_model.dart';
 import 'package:lomfu_app/config/routes.dart';
-import 'package:lomfu_app/config/constants/api_const.dart';
+import 'package:lomfu_app/API/api_const.dart';
 
 class HomeController extends GetxController {
   final _apiService = APIService();

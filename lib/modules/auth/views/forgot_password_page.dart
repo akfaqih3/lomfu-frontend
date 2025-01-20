@@ -65,7 +65,8 @@ class ForgotPasswordPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account? "),
+                    Text("Don't have an account? ",
+                    style: Get.textTheme.titleSmall,),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(Pages.signUp);

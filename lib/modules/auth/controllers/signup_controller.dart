@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_service.dart';
-import 'package:lomfu_app/config/constants/api_const.dart';
+import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 
 class SignupController extends GetxController {
@@ -27,12 +27,12 @@ class SignupController extends GetxController {
     try {
       isLoading(true);
       final data = {
-        "name": name,
-        "email": email,
-        "phone": phone,
-        "role": role,
-        "password": password,
-        "confirm_password":confirmPassword
+        APIKeys.name: name,
+        APIKeys.email: email,
+        APIKeys.phone: phone,
+        APIKeys.role: role,
+        APIKeys.password: password,
+        APIKeys.confirmPassword:confirmPassword
       };
       var response = await _apiService.post(
         Endpoints.register,
@@ -41,11 +41,11 @@ class SignupController extends GetxController {
      
       if (response.statusCode == 201) {
         Get.snackbar("Success", "Signup Successfully");
-        Get.toNamed(Pages.confirmEmail,arguments: data["email"]);
+        Get.toNamed(Pages.confirmEmail,arguments: data[APIKeys.email]);
       } else {
         Get.snackbar(
           "Error",
-          response.body["errors"][0]["message"],
+          response.body[APIKeys.errors][0][APIKeys.message],
         );
       }
     } catch (e) {

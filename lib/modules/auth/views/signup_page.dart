@@ -8,7 +8,7 @@ import 'package:lomfu_app/modules/auth/controllers/signup_controller.dart';
 import 'package:lomfu_app/helpers/validators.dart';
 
 class SignUpPage extends StatelessWidget {
-  final SignupController controller = SignupController();
+  final SignupController controller = Get.put(SignupController());
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -19,6 +19,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppBar(),
       body: Center(
@@ -36,7 +37,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 5),
                 Text(
                   "Enter your details below to sign up",
-                  style: Get.textTheme.bodySmall,
+                  style: Get.textTheme.titleSmall,
                 ),
                 SizedBox(height: 40),
                 Form(
@@ -67,7 +68,7 @@ class SignUpPage extends StatelessWidget {
                                 value: e,
                                 child: Container(
                                   child:
-                                      Text(e, style: Get.textTheme.bodyLarge),
+                                      Text(e, style: Get.textTheme.titleMedium),
                                 ),
                               );
                             }).toList(),
@@ -86,8 +87,7 @@ class SignUpPage extends StatelessWidget {
                               ),
                               alignLabelWithHint: true,
                               labelText: 'Role',
-                              labelStyle: Get.textTheme.bodyLarge!
-                                  .copyWith(fontSize: 18),
+                              labelStyle: Get.textTheme.labelLarge,
                             ),
                           );
                         }),
@@ -126,12 +126,14 @@ class SignUpPage extends StatelessWidget {
                               onChanged: (value) {
                                 controller.onAgreeToTermsChanged(value);
                               },
+                              checkColor: isDarkMode? AppColors.primary:AppColors.white,
+                              activeColor: isDarkMode? AppColors.white:AppColors.primary,
                             );
                           }),
                           Expanded(
                             child: Text(
                               "By creating an account, you agree to our Terms & Conditions.",
-                              style: TextStyle(color: Colors.grey),
+                              style: Get.textTheme.titleSmall,
                             ),
                           ),
                         ],
@@ -167,15 +169,16 @@ class SignUpPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? "),
+                    Text("Already have an account? ",
+                    style: Get.textTheme.labelMedium,),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(Pages.login);
+                        Get.offNamed(Pages.login);
                       },
                       child: Text(
                         "Log in",
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                        style: Get.textTheme.labelMedium!
+                            .copyWith(color: AppColors.primary),
                       ),
                     ),
                   ],

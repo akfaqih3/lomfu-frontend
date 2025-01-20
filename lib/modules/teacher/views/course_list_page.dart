@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lomfu_app/config/constants/api_const.dart';
+import 'package:lomfu_app/API/api_const.dart';
+import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
+import 'package:lomfu_app/widgets/cutom_text_field.dart';
 
-class CourseListPage extends StatelessWidget {
-  final _controller = Get.put(CourseController());
+class CourseListPage extends GetView<CourseController> {
+
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CourseController());
     return Scaffold(
       appBar: CustomAppBar(
         title: Text("Courses"),
@@ -16,82 +20,83 @@ class CourseListPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Text(
+              "My Courses",
+              style: Get.textTheme.titleLarge,
+            ),
             const SizedBox(height: 8),
             Expanded(
               child: Obx(() {
-                if (_controller.loading.value)
+                if (controller.loading.value)
                   return const Center(child: CircularProgressIndicator());
 
-                if (_controller.courselist.isEmpty)
+                if (controller.courselist.isEmpty)
                   return const Center(child: Text("No Courses Found"));
 
-                return _buildSearchResults();
+                return _courseList();
               }),
             ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigate to add course page
+        },
+        child: Icon(
+          Icons.add,
+          color: Get.isDarkMode ? AppColors.darkText : AppColors.lightText,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget _buildSearchResults() {
+  Widget _courseList() {
     return ListView.builder(
-      itemCount: _controller.courselist.length,
+      itemCount: controller.courselist.length,
       itemBuilder: (context, index) {
-        final course = _controller.courselist[index];
+        final course = controller.courselist[index];
         return Card(
-          elevation: 8,
+          margin: const EdgeInsets.symmetric(vertical: 8),
           color:
               Get.isDarkMode ? AppColors.darkSurface : AppColors.lightSurface,
-          child: InkWell(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            onTap: () {
-              print("Hi");
-            },
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: ListTile(
-                  leading: Container(
+          child: ListTile(
+            leading: course.photo != null
+                ? Image.network(
+                    "${baseUrl}${course.photo}",
                     width: 50,
                     height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Image.network(
-                      baseUrl + (course.photo ?? ''),
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.image_not_supported);
-                      },
-                    ),
+                    fit: BoxFit.cover,
+                  )
+                : Icon(
+                    Icons.image_not_supported,
+                    size: 50,
                   ),
-                  title: Text(
-                    course.title,
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        course.overview,
-                        maxLines: 2,
-                      ),
-                      Text(
-                        course.createdAt,
-                      ),
-                    ],
-                  ),
-                  trailing: Text(
-                    course.subject,
-                  ),
+            title: Text(course.title),
+            subtitle: Text(course.subject, maxLines: 2),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    // Navigate to edit course page
+                  },
                 ),
-              ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    // Delete the course
+                  },
+                ),
+              ],
             ),
+            onTap: () {
+              // Navigate to course details
+            },
           ),
         );
       },
