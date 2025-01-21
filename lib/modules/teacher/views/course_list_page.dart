@@ -1,17 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
+import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
 import 'package:lomfu_app/modules/widgets/bottom_navigation_bar.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lomfu_app/modules/teacher/models/course_model.dart';
 
 class CourseListPage extends GetView<CourseController> {
-    final controller = Get.put(CourseController());
-    
+  final controller = Get.put(CourseController());
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -45,7 +50,7 @@ class CourseListPage extends GetView<CourseController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to add course page
+          _showAddCourseDialog(null);
         },
         child: Icon(
           Icons.add,
@@ -92,7 +97,7 @@ class CourseListPage extends GetView<CourseController> {
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
-                    // Delete the course
+                    _deleteCourseDialog(course);
                   },
                 ),
               ],
@@ -104,5 +109,140 @@ class CourseListPage extends GetView<CourseController> {
         );
       },
     );
+  }
+
+  void _showAddCourseDialog(CourseModel? course) {
+    final _formKey = GlobalKey<FormState>();
+
+    // if (course != null) {
+    //   titleController.text = course.title;
+    //   overviewController.text = course.overview;
+    //   selectedSubject = subjects
+    //       .firstWhere((element) => element.title == course.subject)
+    //       .slug;
+    // }
+
+    Future<void> _pickImage() async {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        controller.courseImage.value = File(pickedFile.path);
+      }
+    }
+
+    Get.defaultDialog(
+      title: 'New Course',
+      content: Obx(() {
+        final subjects = controller.subjects;
+
+        return SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                DropdownButtonFormField<String>(
+                  value: subjects.first.slug,
+                  items: subjects
+                      .map((e) => DropdownMenuItem(
+                            value: e.slug,
+                            child: Text(e.title),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    controller.selectedSubject = value!;
+                  },
+                  decoration: InputDecoration(labelText: 'Select Subject'),
+                  validator: (value) => value == null || value.isEmpty
+                      ? 'Please select a subject'
+                      : null,
+                ),
+                SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: controller.titleEditTextController,
+                ),
+                SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: controller.overviewEditTextController,
+                ),
+                SizedBox(height: 10),
+                MaterialButton(
+                  onPressed: _pickImage,
+                  child: Text(
+                      (course == null) ? 'Choose Course photo' : 'edit photo'),
+                ),
+                Obx(() {
+                  return controller.courseImage.value != null
+                      ? Image.file(
+                          controller.courseImage.value!,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        )
+                      : course != null && course.photo != null
+                          ? Image.network(
+                              key: ValueKey(course.photo),
+                              "${baseUrl + course.photo!}",
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    // color: primaryColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text("No image available"),
+                                );
+                              },
+                            )
+                          : Text('No image selected');
+                }),
+              ],
+            ),
+          ),
+        );
+      }),
+      textCancel: 'Cancel',
+      textConfirm: (course == null) ? 'Add' : 'Update',
+      onCancel: () {},
+      onConfirm: () {
+        if (_formKey.currentState!.validate()) {
+          _formKey.currentState!.save();
+          if (controller.selectedSubject == null) {
+            Get.snackbar('Error', 'Please select a subject');
+            return;
+          }
+
+          if (course == null) {
+            controller.addCourse();
+          } else {}
+          Get.back();
+        }
+      },
+    );
+  }
+
+  _deleteCourseDialog(CourseModel course) {
+    Get.defaultDialog(
+        title: 'Delete Course',
+        content: Text("Are you sure you want to delete this course?"),
+        actions: [
+          
+          ElevatedButton(
+            child: Text("Yes"),
+            onPressed: () {
+              controller.deleteCourse(course.id);
+              Get.back<bool>(result: true);
+            },
+          ),
+          ElevatedButton(
+            child: Text("No"),
+            onPressed: () {
+              Get.back<bool>(result: false);
+            },
+          ),
+        ]);
   }
 }

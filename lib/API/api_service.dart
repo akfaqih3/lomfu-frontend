@@ -15,11 +15,25 @@ class APIService {
 
   Future<dynamic> post(String url, dynamic body) async {
     final response = await _client.post(url, body);
-  
+
     if (response.isOk) {
       return response;
     } else {
       throw ApiExceptions(ErrorModel.fromJson(response));
     }
   }
+
+  Future<dynamic> delete(String url) async {
+    final response = await _client.delete(url);
+
+    if (response.isOk) {
+      return response;
+    } else {
+      throw ApiExceptions(ErrorModel.fromJson(response));
+    }
+  }
+
+
+
+
 }

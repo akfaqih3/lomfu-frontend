@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 const String baseUrl = 'https://lomfu.pythonanywhere.com/';
 
 const String apiKey = 'api/';
@@ -31,6 +33,10 @@ class Endpoints {
 
   //teachers endpoints
   static String teachersCourses = "$apiKey$version${apps['teachers']}courses/";
+  static String teachersAddCourse =
+      "$apiKey$version${apps['teachers']}courses/create/";
+  static String teachersDeleteCourse =
+      "$apiKey$version${apps['teachers']}courses/";
 }
 
 class APIKeys {
