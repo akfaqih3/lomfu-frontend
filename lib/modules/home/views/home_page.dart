@@ -6,8 +6,8 @@ import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
 
-class HomePage extends StatelessWidget {
-  final HomeController _controller = Get.put(HomeController());
+class HomePage extends GetView<HomeController> {
+  // final HomeController _controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         child: Obx(() {
-          var subjects = _controller.subjects.value;
+          var subjects = controller.subjects.value;
           return subjects == null
               ?  Center(child: Text(lblNoSubjects.tr))
               : Column(

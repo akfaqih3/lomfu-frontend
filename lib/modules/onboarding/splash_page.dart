@@ -13,31 +13,29 @@ class SplashPage extends StatelessWidget {
     AppTheme = Get.find<ThemeService>();
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
+    Future.delayed(const Duration(milliseconds: 500), () {
+      Get.offNamed(Pages.home);
+    });
+
     return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          
-          Get.offNamed(Pages.onboarding);
-        },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  "assets/images/lomfu.png",
-                  width: 140,
-                  height: 140,
-                ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                "assets/images/lomfu.png",
+                width: 140,
+                height: 140,
               ),
-              SizedBox(height: 20),
-              Text(
-                lblWelcome.tr + appName.tr,
-                style: Get.textTheme.titleLarge,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              lblWelcome.tr + appName.tr,
+              style: Get.textTheme.titleLarge,
+            ),
+          ],
         ),
       ),
     );

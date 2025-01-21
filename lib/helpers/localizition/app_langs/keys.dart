@@ -30,7 +30,7 @@ const String lblResendCode = 'resend_code';
 const String lblResetPassword = 'reset_password';
 const String lblNoSubjects = 'no_subjects';
 const String lblNoCourses = 'no_courses';
-
+const String lblLearning = 'learning';
 
 
 const String hntEmail = 'hint_email';

@@ -28,6 +28,7 @@ Map<String, String> ar = {
   lblResetPassword: 'إعادة تعيين كلمة المرور',
   lblNoSubjects: 'لا توجد مواد',
   lblNoCourses: 'لا توجد دورات',
+  lblLearning: 'التعلم',
 
   hntEmail: 'البريد الإلكتروني',
   hntPassword: 'كلمة المرور',
@@ -45,4 +46,5 @@ Map<String, String> ar = {
   btnSend: 'إرسال',
   btnSubmit: 'تقديم',
   btnVerify: 'تحقق',
+  
 };  

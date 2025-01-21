@@ -29,7 +29,7 @@ Map<String, String> en = {
   lblResetPassword: 'Reset Password',
   lblNoSubjects: 'No Subjects',
   lblNoCourses: 'No Courses',
-  
+  lblLearning: 'Learning',  
 
   hntEmail: 'Email',
   hntPassword: 'Password',

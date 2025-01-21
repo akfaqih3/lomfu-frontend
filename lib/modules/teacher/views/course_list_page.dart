@@ -4,16 +4,17 @@ import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
+import 'package:lomfu_app/modules/widgets/bottom_navigation_bar.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
 
 class CourseListPage extends GetView<CourseController> {
-
-
+    final controller = Get.put(CourseController());
+    
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CourseController());
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppBar(
         title: Text(lblCourses.tr),
@@ -34,7 +35,7 @@ class CourseListPage extends GetView<CourseController> {
                   return const Center(child: CircularProgressIndicator());
 
                 if (controller.courselist.isEmpty)
-                  return  Center(child: Text(lblNoCourses.tr));
+                  return Center(child: Text(lblNoCourses.tr));
 
                 return _courseList();
               }),
@@ -52,6 +53,7 @@ class CourseListPage extends GetView<CourseController> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      bottomNavigationBar: CustomBottomBar(),
     );
   }
 
