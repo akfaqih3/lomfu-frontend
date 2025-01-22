@@ -35,6 +35,10 @@ class Endpoints {
   static String teachersCourses = "$apiKey$version${apps['teachers']}courses/";
   static String teachersAddCourse =
       "$apiKey$version${apps['teachers']}courses/create/";
+
+  static String teachersUpdateCourse =
+      "$apiKey$version${apps['teachers']}courses/";
+
   static String teachersDeleteCourse =
       "$apiKey$version${apps['teachers']}courses/";
 }

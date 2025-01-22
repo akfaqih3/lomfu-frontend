@@ -49,11 +49,13 @@ class CourseController extends GetxController {
   Future<void> addCourse() async {
     try {
       loading(true);
-      final photo = courseImage.value == null ? null :MultipartFile(
-        courseImage.value,
-        filename: courseImage.value!.path.split('/').last,
-        contentType: 'image/jpeg',
-      );
+      final photo = courseImage.value == null
+          ? null
+          : MultipartFile(
+              courseImage.value,
+              filename: courseImage.value!.path.split('/').last,
+              contentType: 'image/jpeg',
+            );
       final data = FormData({
         APIKeys.courseSubject: selectedSubject,
         APIKeys.courseTitle: titleEditTextController.text,
@@ -78,11 +80,46 @@ class CourseController extends GetxController {
     }
   }
 
+  void updateCourse(int id) async {
+    try {
+      loading(true);
+      final photo = courseImage.value == null
+          ? null
+          : MultipartFile(
+              courseImage.value,
+              filename: courseImage.value!.path.split('/').last,
+              contentType: 'image/jpeg',
+            );
+      final data = FormData({
+        APIKeys.courseSubject: selectedSubject,
+        APIKeys.courseTitle: titleEditTextController.text,
+        APIKeys.courseOverview: overviewEditTextController.text,
+        APIKeys.coursePhoto: photo,
+      });
+
+      final response = await _apiService.put(
+          "${Endpoints.teachersUpdateCourse}$id/update/", data);
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Course Updated");
+        await fetchCourses();
+        Get.back();
+      } else {
+        Get.snackbar("Error", "REQUEST BAD");
+      }
+    } on ApiExceptions catch (e) {
+      errorHandler(e);
+    } finally {
+      loading(false);
+      clearForm();
+    }
+  }
 
   void deleteCourse(int id) async {
     try {
       loading(true);
-      final response = await _apiService.delete("${Endpoints.teachersDeleteCourse}$id/delete/");
+      final response = await _apiService
+          .delete("${Endpoints.teachersDeleteCourse}$id/delete/");
       if (response.statusCode == 204) {
         Get.snackbar("Success", "Course Deleted");
         await fetchCourses();
@@ -95,11 +132,8 @@ class CourseController extends GetxController {
     } finally {
       loading(false);
     }
-  } 
+  }
 
-
-
-  
   void clearForm() {
     titleEditTextController.clear();
     overviewEditTextController.clear();
@@ -107,8 +141,4 @@ class CourseController extends GetxController {
     selectedSubject = subjects.first.slug;
     courseImage.value = null;
   }
-
-
-
-
 }

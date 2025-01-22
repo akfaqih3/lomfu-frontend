@@ -91,7 +91,7 @@ class CourseListPage extends GetView<CourseController> {
                 IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
-                    // Navigate to edit course page
+                    _showAddCourseDialog(course);
                   },
                 ),
                 IconButton(
@@ -102,9 +102,7 @@ class CourseListPage extends GetView<CourseController> {
                 ),
               ],
             ),
-            onTap: () {
-              // Navigate to course details
-            },
+            onTap: () {},
           ),
         );
       },
@@ -114,13 +112,13 @@ class CourseListPage extends GetView<CourseController> {
   void _showAddCourseDialog(CourseModel? course) {
     final _formKey = GlobalKey<FormState>();
 
-    // if (course != null) {
-    //   titleController.text = course.title;
-    //   overviewController.text = course.overview;
-    //   selectedSubject = subjects
-    //       .firstWhere((element) => element.title == course.subject)
-    //       .slug;
-    // }
+    if (course != null) {
+      controller.titleEditTextController.text = course.title;
+      controller.overviewEditTextController.text = course.overview;
+      controller.selectedSubject = controller.subjects
+          .firstWhere((element) => element.title == course.subject)
+          .slug;
+    }
 
     Future<void> _pickImage() async {
       final pickedFile =
@@ -217,7 +215,9 @@ class CourseListPage extends GetView<CourseController> {
 
           if (course == null) {
             controller.addCourse();
-          } else {}
+          } else {
+            controller.updateCourse(course.id);
+          }
           Get.back();
         }
       },
@@ -229,7 +229,6 @@ class CourseListPage extends GetView<CourseController> {
         title: 'Delete Course',
         content: Text("Are you sure you want to delete this course?"),
         actions: [
-          
           ElevatedButton(
             child: Text("Yes"),
             onPressed: () {

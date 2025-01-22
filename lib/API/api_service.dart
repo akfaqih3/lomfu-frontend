@@ -34,6 +34,14 @@ class APIService {
   }
 
 
+  Future<dynamic> put(String url, dynamic body) async {
+    final response = await _client.put(url, body);
+    if (response.isOk) {
+      return response;
+    } else {
+      throw ApiExceptions(ErrorModel.fromJson(response));
+    }
+  }
 
 
 }
