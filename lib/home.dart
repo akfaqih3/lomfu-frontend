@@ -4,8 +4,8 @@ import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/themes/app_theme.dart';
 import 'package:lomfu_app/themes/theme_service.dart';
 import 'package:lomfu_app/config/binding.dart';
-import 'package:lomfu_app/helpers/localazition/language_service.dart';
-import 'package:lomfu_app/helpers/localazition/translate.dart';
+import 'package:lomfu_app/helpers/localizition/language_service.dart';
+import 'package:lomfu_app/helpers/localizition/translate.dart';
 
 late LanguageService AppLanguage;
 late ThemeService AppTheme;

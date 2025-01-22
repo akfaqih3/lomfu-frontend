@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
-import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
+import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';

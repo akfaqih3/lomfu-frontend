@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/config/routes.dart';
-import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
+import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
 import 'package:lomfu_app/home.dart';
-import 'package:lomfu_app/helpers/localazition/language_service.dart';
+import 'package:lomfu_app/helpers/localizition/language_service.dart';
 import 'package:lomfu_app/themes/theme_service.dart';
 
 class SplashPage extends StatelessWidget {

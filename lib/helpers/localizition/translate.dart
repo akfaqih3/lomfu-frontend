@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:lomfu_app/helpers/localazition/app_langs/en.dart';
-import 'package:lomfu_app/helpers/localazition/app_langs/ar.dart';
+import 'package:lomfu_app/helpers/localizition/app_langs/en.dart';
+import 'package:lomfu_app/helpers/localizition/app_langs/ar.dart';
 
 class Translate implements Translations {
   @override
