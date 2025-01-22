@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
 import 'package:lomfu_app/themes/colors.dart';
+import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/modules/auth/controllers/forgot_password_controller.dart';
@@ -20,16 +22,7 @@ class PasswordResetPage extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,
-              color: isDarkMode ? AppColors.darkText : AppColors.lightText),
-          onPressed: () {
-            Get.back(); // العودة إلى الشاشة السابقة
-          },
-        ),
-      ),
+      appBar:CustomAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -38,7 +31,7 @@ class PasswordResetPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Reset Password",
+                  lblResetPassword.tr,
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -51,16 +44,10 @@ class PasswordResetPage extends StatelessWidget {
                     key: _formKey,
                     child: Column(
                       children: [
-                        CustomTextFormField(
-                          controller: emailController,
-                          labelText: "Email",
-                          prefixIcon: Icons.email,
-                          validator: validateEmail,
-                        ),
                         SizedBox(height: 20),
                         CustomTextFormField(
                           controller: passwordController,
-                          labelText: "Password",
+                          labelText: hntPassword.tr,
                           prefixIcon: Icons.lock,
                           isPassword: true,
                           validator: validatePassword,
@@ -68,7 +55,7 @@ class PasswordResetPage extends StatelessWidget {
                         SizedBox(height: 20),
                         CustomTextFormField(
                           controller: confirmPasswordController,
-                          labelText: "Confirm Password",
+                          labelText: hntConfirmPassword.tr,
                           prefixIcon: Icons.lock,
                           isPassword: true,
                           validator: (value) {
@@ -85,31 +72,15 @@ class PasswordResetPage extends StatelessWidget {
                               //     passwordController.text,
                               //     confirmPasswordController.text);
                             },
-                            child: const Text(
-                              "Submit",
+                            child:  Text(
+                              btnSubmit.tr,
                             ),
                           ),
                         ),
                         const SizedBox(height: 20),
                       ],
                     )),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Don't have an account? "),
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Pages.signUp);
-                      },
-                      child: const Text(
-                        "Sign up",
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
+               
               ],
             ),
           ),

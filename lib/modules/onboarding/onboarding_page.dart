@@ -5,7 +5,7 @@ import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/modules/onboarding/onboarding_controller.dart';
 import 'package:lomfu_app/themes/app_theme.dart';
-import 'package:lomfu_app/themes/app_theme_controller.dart';
+import 'package:lomfu_app/themes/theme_service.dart';
 
 class OnboardingPage extends StatelessWidget {
   final PageController _pageController = PageController();

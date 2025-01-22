@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_const.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
 import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
@@ -16,12 +17,12 @@ class HomePage extends StatelessWidget {
         child: Obx(() {
           var subjects = _controller.subjects.value;
           return subjects == null
-              ? const Center(child: Text("Subject not found"))
+              ?  Center(child: Text(lblNoSubjects.tr))
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Subjects",
+                     Text(
+                      lblSubjects.tr,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -29,9 +30,9 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     SizedBox(
-                      height: 180, // ارتفاع منطقة البطاقات
+                      height: 180, 
                       child: ListView.builder(
-                        scrollDirection: Axis.horizontal, // التمرير أفقي
+                        scrollDirection: Axis.horizontal,
                         itemCount: subjects.length,
                         itemBuilder: (context, index) {
                           var subject = subjects[index];
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
                             
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 4,top: 4),
-                              width: 140, // عرض البطاقة
+                              width: 140, 
                               decoration: BoxDecoration(
                                 color: Get.isDarkMode
                                     ? AppColors.darkSurface

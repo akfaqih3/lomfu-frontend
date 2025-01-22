@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
@@ -27,7 +28,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Log In",
+                  lblLogin.tr,
                   style: Get.textTheme.titleLarge,
                 ),
                 const SizedBox(height: 80),
@@ -37,14 +38,14 @@ class LoginPage extends StatelessWidget {
                       children: [
                         CustomTextFormField(
                           controller: emailController,
-                          labelText: "Email",
+                          labelText: hntEmail.tr,
                           prefixIcon: Icons.email,
                           validator: validateEmail,
                         ),
                         const SizedBox(height: 20),
                         CustomTextFormField(
                           controller: passwordController,
-                          labelText: "Password",
+                          labelText: hntPassword.tr,
                           prefixIcon: Icons.lock,
                           isPassword: true,
                           validator: validatePassword,
@@ -55,9 +56,11 @@ class LoginPage extends StatelessWidget {
                             onPressed: () {
                               Get.toNamed(Pages.forgotPassword);
                             },
-                            child: Text("Forgot password?",
+                            child: Text(btnForgotPassword.tr,
                                 style: Get.textTheme.titleSmall!.copyWith(
-                                    color: isDarkMode? AppColors.darkText:AppColors.primary,
+                                  color: isDarkMode
+                                      ? AppColors.darkText
+                                      : AppColors.primary,
                                 )),
                           ),
                         ),
@@ -68,12 +71,12 @@ class LoginPage extends StatelessWidget {
                                   onPressed: () {
                                     _login();
                                   },
-                                  child: const Text("Log in"),
                                   style: ElevatedButton.styleFrom(
                                     minimumSize:
                                         const Size(double.infinity, 50),
                                     backgroundColor: AppColors.primary,
                                   ),
+                                  child: Text(btnLogin.tr),
                                 );
                         }),
                       ],
@@ -82,14 +85,16 @@ class LoginPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account? ",
-                    style: Get.textTheme.labelMedium,),
+                    Text(
+                      lblDontHaveAccount.tr,
+                      style: Get.textTheme.labelMedium,
+                    ),
                     GestureDetector(
                       onTap: () {
                         Get.offNamed(Pages.signUp);
                       },
                       child: Text(
-                        "Sign up",
+                        btnRegister.tr,
                         style: Get.textTheme.titleMedium!
                             .copyWith(color: AppColors.primary),
                       ),
@@ -97,8 +102,9 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  "Or log in with",
+                Text(
+                  lblOrLoginWith.tr,
+                  style: Get.textTheme.labelMedium,
                 ),
                 const SizedBox(height: 20),
                 Row(

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_service.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
 
 class SignupController extends GetxController {
   final APIService _apiService = APIService();
@@ -9,8 +10,8 @@ class SignupController extends GetxController {
   final isLoading = false.obs;
   final isPasswordMatch = false.obs;
   static final roles = {
-    "teacher": "Teacher",
-    "student": "Student",
+    "teacher": lblTeacher,
+    "student": lblStudent,
   };
 
   final selectedRole = roles.keys.first.obs;

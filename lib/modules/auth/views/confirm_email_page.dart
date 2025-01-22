@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/modules/auth/controllers/confirm_email_controller.dart';
 
@@ -31,7 +32,7 @@ class ConfirmEmailPage extends StatelessWidget {
               children: [
                 // النص الرئيسي
                 Text(
-                  "Verify Email",
+                  lblVerifyEmail.tr,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -42,7 +43,7 @@ class ConfirmEmailPage extends StatelessWidget {
                 SizedBox(height: 10),
                 // النص التوضيحي
                 Text(
-                  "Code is sent to ${controller.email}",
+                  "${lblCodeSentTo.tr} ${controller.email}",
                   style: TextStyle(
                     fontSize: 16,
                     color:
@@ -90,7 +91,7 @@ class ConfirmEmailPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't recieve code? "),
+                     Text(lblDontRecieveCode.tr),
                     Obx(() {
                       if (controller.resendAfter.value > 0) {
                         return Text(
@@ -109,8 +110,8 @@ class ConfirmEmailPage extends StatelessWidget {
                               onTap: () {
                                 controller.resendOTP();
                               },
-                              child: const Text(
-                                "Resend",
+                              child:  Text(
+                                lblResendCode.tr,
                                 style: TextStyle(
                                     color: Colors.blue,
                                     fontWeight: FontWeight.bold),
@@ -136,7 +137,7 @@ class ConfirmEmailPage extends StatelessWidget {
                                   vertical: 15, horizontal: 50),
                             ),
                             child: Text(
-                              "Verify Account",
+                             btnVerify.tr,
                               style: TextStyle(color: AppColors.lightText),
                             ),
                           );

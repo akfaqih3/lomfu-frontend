@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
@@ -15,7 +16,7 @@ class CourseListPage extends GetView<CourseController> {
     final controller = Get.put(CourseController());
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text("Courses"),
+        title: Text(lblCourses.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,7 +24,7 @@ class CourseListPage extends GetView<CourseController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "My Courses",
+              lblMyCourses.tr,
               style: Get.textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
@@ -33,7 +34,7 @@ class CourseListPage extends GetView<CourseController> {
                   return const Center(child: CircularProgressIndicator());
 
                 if (controller.courselist.isEmpty)
-                  return const Center(child: Text("No Courses Found"));
+                  return  Center(child: Text(lblNoCourses.tr));
 
                 return _courseList();
               }),

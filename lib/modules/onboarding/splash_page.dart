@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/config/routes.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
+import 'package:lomfu_app/home.dart';
+import 'package:lomfu_app/helpers/localazition/language_service.dart';
+import 'package:lomfu_app/themes/theme_service.dart';
 
 class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AppLanguage = Get.find<LanguageService>();
+    AppTheme = Get.find<ThemeService>();
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       body: GestureDetector(
         onTap: () {
+          
           Get.offNamed(Pages.onboarding);
         },
         child: Center(
@@ -28,7 +33,7 @@ class SplashPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                "Welcome to Lomfu",
+                lblWelcome.tr + appName.tr,
                 style: Get.textTheme.titleLarge,
               ),
             ],

@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lomfu_app/helpers/cache.dart';
+import 'package:get_storage/get_storage.dart';
 
-class AppThemeController extends GetxController {
+class ThemeService extends GetxService {
+  bool isDark = false;
+
   @override
   void onInit() async {
     super.onInit();
@@ -10,12 +12,12 @@ class AppThemeController extends GetxController {
   }
 
   void getMode() async {
-    final isDark = await Cache.getBool("isDark") ?? Get.isDarkMode;
+    isDark = await GetStorage().read("isDark") ?? Get.isDarkMode;
     Get.changeThemeMode(isDark ? ThemeMode.dark : ThemeMode.light);
   }
 
   Future<void> toggleMode() async {
-    await Cache.setBool("isDark", !Get.isDarkMode);
+    await GetStorage().write("isDark", !Get.isDarkMode);
     Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
   }
 }

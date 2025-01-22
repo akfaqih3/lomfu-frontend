@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
 import 'package:lomfu_app/themes/colors.dart';
@@ -19,6 +20,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: CustomAppBar(),
@@ -31,12 +33,12 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Sign Up",
+                  lblRegister.tr,
                   style: Get.textTheme.titleLarge,
                 ),
                 SizedBox(height: 5),
                 Text(
-                  "Enter your details below to sign up",
+                  lblEnterYourDetails.tr,
                   style: Get.textTheme.titleSmall,
                 ),
                 SizedBox(height: 40),
@@ -45,14 +47,14 @@ class SignUpPage extends StatelessWidget {
                   child: Column(
                     children: [
                       CustomTextFormField(
-                        labelText: 'Name',
+                        labelText: hntName.tr,
                         controller: nameController,
                         prefixIcon: Icons.person,
                         validator: validateName,
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Email',
+                        labelText: hntEmail.tr,
                         controller: emailController,
                         prefixIcon: Icons.email,
                         validator: validateEmail,
@@ -60,15 +62,16 @@ class SignUpPage extends StatelessWidget {
                       SizedBox(height: 20),
                       Container(
                         child: Obx(() {
+                          final roles = SignupController.roles;
                           return DropdownButtonFormField(
                             value: controller.selectedRole.value,
                             isExpanded: true,
-                            items: SignupController.roles.keys.map((e) {
+                            items: roles.keys.map((e) {
                               return DropdownMenuItem(
                                 value: e,
                                 child: Container(
                                   child:
-                                      Text(e, style: Get.textTheme.titleMedium),
+                                      Text(roles[e]!.tr, style: Get.textTheme.titleMedium),
                                 ),
                               );
                             }).toList(),
@@ -86,7 +89,7 @@ class SignUpPage extends StatelessWidget {
                                 vertical: 10,
                               ),
                               alignLabelWithHint: true,
-                              labelText: 'Role',
+                              labelText: hntRole.tr,
                               labelStyle: Get.textTheme.labelLarge,
                             ),
                           );
@@ -94,14 +97,14 @@ class SignUpPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Phone',
+                        labelText:hntPhone.tr,
                         controller: phoneController,
                         prefixIcon: Icons.phone,
                         validator: validatephoneNumber,
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Password',
+                        labelText: hntPassword.tr,
                         controller: passwordController,
                         prefixIcon: Icons.lock,
                         isPassword: true,
@@ -109,7 +112,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Confirm Password',
+                        labelText: hntConfirmPassword.tr,
                         controller: confirmPasswordController,
                         prefixIcon: Icons.lock,
                         isPassword: true,
@@ -132,7 +135,7 @@ class SignUpPage extends StatelessWidget {
                           }),
                           Expanded(
                             child: Text(
-                              "By creating an account, you agree to our Terms & Conditions.",
+                              lblPolicyPrivacy.tr,
                               style: Get.textTheme.titleSmall,
                             ),
                           ),
@@ -158,7 +161,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            "Create account",
+                            btnRegister.tr,
                           ),
                         );
                       }),
@@ -169,14 +172,14 @@ class SignUpPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? ",
+                    Text(lblAlreadyHaveAccount.tr,
                     style: Get.textTheme.labelMedium,),
                     GestureDetector(
                       onTap: () {
                         Get.offNamed(Pages.login);
                       },
                       child: Text(
-                        "Log in",
+                        btnLogin.tr,
                         style: Get.textTheme.labelMedium!
                             .copyWith(color: AppColors.primary),
                       ),

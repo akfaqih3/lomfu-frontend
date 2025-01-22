@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lomfu_app/themes/colors.dart';
 
-class AppTheme {
+class AppThemes {
   // Light Theme
   static ThemeData lightTheme = ThemeData.light().copyWith(
     brightness: Brightness.light,

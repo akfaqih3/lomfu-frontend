@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lomfu_app/helpers/localazition/app_langs/keys.dart';
+import 'package:lomfu_app/home.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
 import 'package:lomfu_app/config/routes.dart';
@@ -16,7 +18,7 @@ class ForgotPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+     AppTheme.isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: CustomAppBar(),
@@ -28,7 +30,7 @@ class ForgotPasswordPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Forgot Password",
+                  lblForgotPassword.tr,
                   style: Get.textTheme.titleLarge,
                 ),
                 const SizedBox(height: 30),
@@ -38,7 +40,7 @@ class ForgotPasswordPage extends StatelessWidget {
                       children: [
                         CustomTextFormField(
                           controller: emailController,
-                          labelText: "Email",
+                          labelText: hntEmail.tr,
                           prefixIcon: Icons.email,
                           validator: validateEmail,
                         ),
@@ -46,15 +48,17 @@ class ForgotPasswordPage extends StatelessWidget {
                           height: 10,
                         ),
                         Align(
-                            alignment: Alignment.centerRight,
+                            alignment: AppLanguage.appLang == AppLanguage.arKey
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
                             child: Obx(() {
                               return controller.isLoading.value
                                   ? const CircularProgressIndicator(
                                       color: AppColors.primary)
                                   : ElevatedButton(
                                       onPressed: _forgotPassword,
-                                      child: const Text(
-                                        "Submit",
+                                      child: Text(
+                                        btnSend.tr,
                                       ),
                                     );
                             })),
@@ -65,14 +69,16 @@ class ForgotPasswordPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account? ",
-                    style: Get.textTheme.titleSmall,),
+                    Text(
+                      lblDontHaveAccount.tr,
+                      style: Get.textTheme.titleSmall,
+                    ),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(Pages.signUp);
                       },
                       child: const Text(
-                        "Sign up",
+                        lblRegister,
                         style: TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.bold),
                       ),

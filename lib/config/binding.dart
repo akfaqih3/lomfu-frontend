@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
-import 'package:lomfu_app/themes/app_theme_controller.dart';
+import 'package:lomfu_app/themes/theme_service.dart';
+import 'package:lomfu_app/helpers/localazition/language_service.dart';
 
 class AppBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AppThemeController>(() => AppThemeController(), fenix: true);
+    Get.lazyPut<ThemeService>(() => ThemeService(), fenix: true);
+    Get.lazyPut<LanguageService>(() => LanguageService(), fenix: true);
   }
 }
