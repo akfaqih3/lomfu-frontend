@@ -29,7 +29,7 @@ class APIClient extends GetConnect {
                 '${APIKeys.tokenType} ${await TokenStorage.getAccessToken()}',
           });
           return await httpClient.request(
-            newRequest.url as String,
+            newRequest.url.toString(),
             newRequest.method,
             headers: newRequest.headers,
             body: newRequest.files ?? newRequest.bodyBytes,
