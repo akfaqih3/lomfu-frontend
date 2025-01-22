@@ -34,7 +34,6 @@ class CustomTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
@@ -42,7 +41,6 @@ class CustomTextFormField extends StatelessWidget {
             width: 2,
           ),
         ),
-        
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
@@ -50,9 +48,7 @@ class CustomTextFormField extends StatelessWidget {
             width: 1,
           ),
         ),
-        
       ),
-      
     );
   }
 }

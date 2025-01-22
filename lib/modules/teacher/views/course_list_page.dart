@@ -102,7 +102,9 @@ class CourseListPage extends GetView<CourseController> {
                 ),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(Pages.courseDetails, arguments: {"course": course});
+            },
           ),
         );
       },
