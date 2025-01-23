@@ -1,3 +1,5 @@
+import 'package:lomfu_app/API/api_const.dart';
+
 class LoginModel {
   final String accessToken;
   final String refreshToken;
@@ -9,8 +11,8 @@ class LoginModel {
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
-      accessToken: json['access'],
-      refreshToken: json['refresh'],
+      accessToken: json[APIKeys.accessToken],
+      refreshToken: json[APIKeys.refreshToken],
     );
   }
 }

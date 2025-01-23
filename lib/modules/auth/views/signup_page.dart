@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
+import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/config/routes.dart';
@@ -8,7 +9,7 @@ import 'package:lomfu_app/modules/auth/controllers/signup_controller.dart';
 import 'package:lomfu_app/helpers/validators.dart';
 
 class SignUpPage extends StatelessWidget {
-  final SignupController controller = SignupController();
+  final SignupController controller = Get.put(SignupController());
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -19,8 +20,10 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Get.isDarkMode;
+    
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -30,13 +33,13 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Sign Up",
+                  lblRegister.tr,
                   style: Get.textTheme.titleLarge,
                 ),
                 SizedBox(height: 5),
                 Text(
-                  "Enter your details below to sign up",
-                  style: Get.textTheme.bodySmall,
+                  lblEnterYourDetails.tr,
+                  style: Get.textTheme.titleSmall,
                 ),
                 SizedBox(height: 40),
                 Form(
@@ -44,14 +47,14 @@ class SignUpPage extends StatelessWidget {
                   child: Column(
                     children: [
                       CustomTextFormField(
-                        labelText: 'Name',
+                        labelText: hntName.tr,
                         controller: nameController,
                         prefixIcon: Icons.person,
                         validator: validateName,
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Email',
+                        labelText: hntEmail.tr,
                         controller: emailController,
                         prefixIcon: Icons.email,
                         validator: validateEmail,
@@ -59,15 +62,16 @@ class SignUpPage extends StatelessWidget {
                       SizedBox(height: 20),
                       Container(
                         child: Obx(() {
+                          final roles = SignupController.roles;
                           return DropdownButtonFormField(
                             value: controller.selectedRole.value,
                             isExpanded: true,
-                            items: SignupController.roles.keys.map((e) {
+                            items: roles.keys.map((e) {
                               return DropdownMenuItem(
                                 value: e,
                                 child: Container(
                                   child:
-                                      Text(e, style: Get.textTheme.bodyLarge),
+                                      Text(roles[e]!.tr, style: Get.textTheme.titleMedium),
                                 ),
                               );
                             }).toList(),
@@ -85,23 +89,22 @@ class SignUpPage extends StatelessWidget {
                                 vertical: 10,
                               ),
                               alignLabelWithHint: true,
-                              labelText: 'Role',
-                              labelStyle: Get.textTheme.bodyLarge!
-                                  .copyWith(fontSize: 18),
+                              labelText: hntRole.tr,
+                              labelStyle: Get.textTheme.labelLarge,
                             ),
                           );
                         }),
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Phone',
+                        labelText:hntPhone.tr,
                         controller: phoneController,
                         prefixIcon: Icons.phone,
                         validator: validatephoneNumber,
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Password',
+                        labelText: hntPassword.tr,
                         controller: passwordController,
                         prefixIcon: Icons.lock,
                         isPassword: true,
@@ -109,7 +112,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
-                        labelText: 'Confirm Password',
+                        labelText: hntConfirmPassword.tr,
                         controller: confirmPasswordController,
                         prefixIcon: Icons.lock,
                         isPassword: true,
@@ -126,12 +129,14 @@ class SignUpPage extends StatelessWidget {
                               onChanged: (value) {
                                 controller.onAgreeToTermsChanged(value);
                               },
+                              checkColor: isDarkMode? AppColors.primary:AppColors.white,
+                              activeColor: isDarkMode? AppColors.white:AppColors.primary,
                             );
                           }),
                           Expanded(
                             child: Text(
-                              "By creating an account, you agree to our Terms & Conditions.",
-                              style: TextStyle(color: Colors.grey),
+                              lblPolicyPrivacy.tr,
+                              style: Get.textTheme.titleSmall,
                             ),
                           ),
                         ],
@@ -156,7 +161,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            "Create account",
+                            btnRegister.tr,
                           ),
                         );
                       }),
@@ -167,15 +172,16 @@ class SignUpPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? "),
+                    Text(lblAlreadyHaveAccount.tr,
+                    style: Get.textTheme.labelMedium,),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(Pages.login);
+                        Get.offNamed(Pages.login);
                       },
                       child: Text(
-                        "Log in",
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                        btnLogin.tr,
+                        style: Get.textTheme.labelMedium!
+                            .copyWith(color: AppColors.primary),
                       ),
                     ),
                   ],
@@ -191,12 +197,13 @@ class SignUpPage extends StatelessWidget {
   void _signup() {
     if (_formKey.currentState!.validate()) {
       controller.signup(
-          nameController.text,
-          emailController.text,
-          controller.selectedRole.value,
-          phoneController.text,
-          passwordController.text,
-          confirmPasswordController.text);
+        nameController.text,
+        emailController.text,
+        controller.selectedRole.value,
+        phoneController.text,
+        passwordController.text,
+        confirmPasswordController.text,
+      );
     }
   }
 }

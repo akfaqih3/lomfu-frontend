@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lomfu_app/themes/colors.dart';
 
-class AppTheme {
+class AppThemes {
   // Light Theme
-  static ThemeData lightTheme = ThemeData(
+  static ThemeData lightTheme = ThemeData.light().copyWith(
     brightness: Brightness.light,
     primaryColor: AppColors.lightPrimary,
     scaffoldBackgroundColor: AppColors.lightBackground,
@@ -20,7 +20,7 @@ class AppTheme {
     ),
     textTheme: TextTheme(
       labelLarge: TextStyle(color: AppColors.lightText, fontSize: 16),
-      labelMedium: TextStyle(color: AppColors.lightSurface, fontSize: 14),
+      labelMedium: TextStyle(color: AppColors.lightText, fontSize: 14),
       labelSmall: TextStyle(color: AppColors.lightText, fontSize: 12),
       titleLarge: TextStyle(
         color: AppColors.lightText,
@@ -61,7 +61,7 @@ class AppTheme {
   );
 
   // Dark Theme
-  static ThemeData darkTheme = ThemeData(
+  static ThemeData darkTheme = ThemeData.dark().copyWith(
     brightness: Brightness.dark,
     primaryColor: AppColors.darkPrimary,
     scaffoldBackgroundColor: AppColors.darkBackground,
@@ -78,15 +78,15 @@ class AppTheme {
     ),
     textTheme: TextTheme(
       labelLarge: TextStyle(color: AppColors.darkText, fontSize: 16),
-      labelMedium: TextStyle(color: AppColors.darkSurface, fontSize: 14),
-      labelSmall: TextStyle(color: AppColors.darkSurface, fontSize: 12),
+      labelMedium: TextStyle(color: AppColors.darkText, fontSize: 14),
+      labelSmall: TextStyle(color: AppColors.darkText, fontSize: 12),
       titleLarge: TextStyle(
         color: AppColors.darkText,
         fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
-      titleMedium: TextStyle(color: AppColors.darkSurface, fontSize: 16),
-      titleSmall: TextStyle(color: AppColors.darkSurface, fontSize: 12),
+      titleMedium: TextStyle(color: AppColors.darkText, fontSize: 16),
+      titleSmall: TextStyle(color: AppColors.darkText, fontSize: 12),
     ),
     buttonTheme: ButtonThemeData(
       buttonColor: AppColors.darkPrimary,

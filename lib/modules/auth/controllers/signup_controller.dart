@@ -1,16 +1,17 @@
 import 'package:get/get.dart';
-import 'package:lomfu_app/API/api_service.dart';
-import 'package:lomfu_app/config/constants/api_const.dart';
+import 'package:lomfu_app/API/api_helper.dart';
+import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
+import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
 
 class SignupController extends GetxController {
-  final APIService _apiService = APIService();
+  final APIHelper _apiService = APIHelper();
   final agreeToTerms = false.obs;
   final isLoading = false.obs;
   final isPasswordMatch = false.obs;
   static final roles = {
-    "teacher": "Teacher",
-    "student": "Student",
+    "teacher": lblTeacher,
+    "student": lblStudent,
   };
 
   final selectedRole = roles.keys.first.obs;
@@ -27,12 +28,12 @@ class SignupController extends GetxController {
     try {
       isLoading(true);
       final data = {
-        "name": name,
-        "email": email,
-        "phone": phone,
-        "role": role,
-        "password": password,
-        "confirm_password":confirmPassword
+        APIKeys.name: name,
+        APIKeys.email: email,
+        APIKeys.phone: phone,
+        APIKeys.role: role,
+        APIKeys.password: password,
+        APIKeys.confirmPassword:confirmPassword
       };
       var response = await _apiService.post(
         Endpoints.register,
@@ -41,11 +42,11 @@ class SignupController extends GetxController {
      
       if (response.statusCode == 201) {
         Get.snackbar("Success", "Signup Successfully");
-        Get.toNamed(Pages.confirmEmail,arguments: data["email"]);
+        Get.toNamed(Pages.confirmEmail,arguments: data[APIKeys.email]);
       } else {
         Get.snackbar(
           "Error",
-          response.body["errors"][0]["message"],
+          response.body[APIKeys.errors][0][APIKeys.message],
         );
       }
     } catch (e) {

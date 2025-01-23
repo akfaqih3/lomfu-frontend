@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lomfu_app/API/api_service.dart';
-import 'package:lomfu_app/config/constants/api_const.dart';
+import 'package:lomfu_app/API/api_helper.dart';
+import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
 import 'dart:async';
 
 class ConfirmEmailController extends GetxController {
-  final APIService _apiService = APIService();
+  final APIHelper _apiService = APIHelper();
   final List<TextEditingController> textControllers =
       List.generate(6, (index) => TextEditingController());
   final List<FocusNode> focusNodes = List.generate(6, (index) => FocusNode());
@@ -39,12 +39,13 @@ class ConfirmEmailController extends GetxController {
   void verifyAccount() async {
     try {
       isLoading(true);
-      var data = {"email": email, "otp": getEnteredCode()};
+      var data = {APIKeys.email: email, APIKeys.otp: getEnteredCode()};
       final response = await _apiService.post(Endpoints.verifyEmail, data);
       if (response.statusCode == 200) {
-        Get.snackbar("Success", response.body["message"]);
+        Get.snackbar("Success", response.body[APIKeys.message]);
         await TokenStorage.saveToken(
-            response.body["access"], response.body["refresh"]);
+            response.body[APIKeys.accessToken],
+            response.body[APIKeys.refreshToken]);
         Get.offAllNamed(Pages.home);
       } else {
         Get.snackbar("Error", "Account Verification Failed");
@@ -61,17 +62,17 @@ class ConfirmEmailController extends GetxController {
   void resendOTP() async {
     try {
       isResending(true);
-      var data = {"email": email};
+      var data = {APIKeys.email: email};
       final response = await _apiService.post(Endpoints.resendOTP, data);
       if (response.statusCode == 200) {
-        Get.snackbar("Success", response.body["message"]);
+        Get.snackbar("Success", response.body[APIKeys.message]);
         timerToResend(60);
       } else {
         if (response.statusCode == 400) {
           Get.snackbar("Error", response.body);
           Get.offAllNamed(Pages.login);
         }
-        Get.snackbar("Error", response.body["message"]);
+        Get.snackbar("Error", response.body[APIKeys.message]);
       }
     } catch (e) {
       Get.snackbar("Error", "Account Verification Failed");

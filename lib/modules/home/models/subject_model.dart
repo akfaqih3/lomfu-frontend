@@ -1,3 +1,5 @@
+import 'package:lomfu_app/API/api_const.dart';
+
 class SubjectModel {
   final String slug;
   final String title;
@@ -13,10 +15,10 @@ class SubjectModel {
 
   factory SubjectModel.fromJson(Map<String, dynamic> json) {
     return SubjectModel(
-      slug: json['slug'],
-      title: json['title'],
-      photo: json['photo'],
-      coursestotal: json['total_courses'],
+      slug: json[APIKeys.subjectSlug],
+      title: json[APIKeys.subjectTitle],
+      photo: json[APIKeys.subjectphoto],
+      coursestotal: json[APIKeys.subjectCoursesTotal],
     );
   }
 }
