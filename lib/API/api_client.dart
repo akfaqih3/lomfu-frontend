@@ -3,7 +3,7 @@ import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/API/api_exceptions.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
-import 'package:lomfu_app/API/api_service.dart';
+import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/modules/auth/controllers/login_controller.dart';
 
 class APIClient extends GetConnect {
@@ -28,13 +28,14 @@ class APIClient extends GetConnect {
             'Authorization':
                 '${APIKeys.tokenType} ${await TokenStorage.getAccessToken()}',
           });
-          return await httpClient.request(
-            newRequest.url.toString(),
+          response = await httpClient.request(
+            newRequest.url.toString().replaceFirst(baseUrl, ''),
             newRequest.method,
             headers: newRequest.headers,
-            body: newRequest.files ?? newRequest.bodyBytes,
+            body: newRequest.files ?? null,
           );
-          
+         
+          return response;
         } else {
           return Future.error(response);
         }
@@ -42,5 +43,4 @@ class APIClient extends GetConnect {
       return response;
     });
   }
-
 }

@@ -1,7 +1,7 @@
 import 'package:lomfu_app/API/api_client.dart';
 import 'package:lomfu_app/API/api_exceptions.dart';
 
-class APIService {
+class APIHelper {
   final APIClient _client = APIClient();
 
   Future<dynamic> get(String url) async {
@@ -33,7 +33,6 @@ class APIService {
     }
   }
 
-
   Future<dynamic> put(String url, dynamic body) async {
     final response = await _client.put(url, body);
     if (response.isOk) {
@@ -42,6 +41,4 @@ class APIService {
       throw ApiExceptions(ErrorModel.fromJson(response));
     }
   }
-
-
 }

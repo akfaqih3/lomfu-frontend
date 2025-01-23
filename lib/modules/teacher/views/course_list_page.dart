@@ -79,10 +79,17 @@ class CourseListPage extends GetView<CourseController> {
                     height: 50,
                     fit: BoxFit.cover,
                   )
-                : Icon(
-                    Icons.image_not_supported,
-                    size: 50,
-                  ),
+                : course.photoBytes != null
+                    ? Image.memory(
+                        course.photoBytes!,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      )
+                    : Icon(
+                        Icons.image_not_supported,
+                        size: 50,
+                      ),
             title: Text(course.title),
             subtitle: Text(course.subject, maxLines: 2),
             trailing: Row(
@@ -103,7 +110,7 @@ class CourseListPage extends GetView<CourseController> {
               ],
             ),
             onTap: () {
-              Get.toNamed(Pages.courseDetails, arguments: {"course": course});
+              // Get.toNamed(Pages.courseDetails, arguments: {"course": course});
             },
           ),
         );
@@ -118,10 +125,9 @@ class CourseListPage extends GetView<CourseController> {
       controller.titleEditTextController.text = course.title;
       controller.overviewEditTextController.text = course.overview;
       controller.selectedSubject = controller.subjects
-          .firstWhere((element) => element.title == course.subject)
-          .slug;
-    }
+          .firstWhereOrNull ((element) => element.title == course.subject)?.slug;
 
+    }
     Future<void> _pickImage() async {
       final pickedFile =
           await ImagePicker().pickImage(source: ImageSource.gallery);

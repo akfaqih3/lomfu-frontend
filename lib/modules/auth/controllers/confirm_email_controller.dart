@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lomfu_app/API/api_service.dart';
+import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
 import 'dart:async';
 
 class ConfirmEmailController extends GetxController {
-  final APIService _apiService = APIService();
+  final APIHelper _apiService = APIHelper();
   final List<TextEditingController> textControllers =
       List.generate(6, (index) => TextEditingController());
   final List<FocusNode> focusNodes = List.generate(6, (index) => FocusNode());

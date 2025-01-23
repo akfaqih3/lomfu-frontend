@@ -34,8 +34,7 @@ class AppRoutes {
     GetPage(name: Pages.onboarding, page: () => OnboardingPage()),
     GetPage(
         name: Pages.home,
-        page: () => HomePage(),
-        middlewares: [AuthMiddleware()]),
+        page: () => HomePage()),
     GetPage(name: Pages.login, page: () => LoginPage()),
     GetPage(name: Pages.signUp, page: () => SignUpPage()),
     GetPage(name: Pages.confirmEmail, page: () => ConfirmEmailPage()),

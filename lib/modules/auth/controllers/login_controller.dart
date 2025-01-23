@@ -2,12 +2,12 @@ import 'package:get/get.dart';
 import 'package:lomfu_app/modules/auth/models/login_model.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
 import 'package:lomfu_app/config/routes.dart';
-import 'package:lomfu_app/API/api_service.dart';
+import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/API/api_exceptions.dart';
 
 class LoginController extends GetxController {
-  final APIService _apiService = APIService();
+  final APIHelper _apiService = APIHelper();
   final isLoading = false.obs;
 
   String? accessToken;
@@ -67,7 +67,7 @@ class LoginController extends GetxController {
 
 refreshToken() async {
   try {
-    final APIService _apiService = APIService();
+  final APIHelper _apiService = APIHelper();
     final refreshToken = await TokenStorage.getRefreshToken();
 
     final response = await _apiService.post(Endpoints.refreshToken, {

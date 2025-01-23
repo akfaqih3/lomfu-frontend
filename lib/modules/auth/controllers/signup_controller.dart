@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:lomfu_app/API/api_service.dart';
+import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
 
 class SignupController extends GetxController {
-  final APIService _apiService = APIService();
+  final APIHelper _apiService = APIHelper();
   final agreeToTerms = false.obs;
   final isLoading = false.obs;
   final isPasswordMatch = false.obs;

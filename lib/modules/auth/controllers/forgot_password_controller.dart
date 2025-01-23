@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:lomfu_app/API/api_service.dart';
+import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 
 class ForgotPasswordController extends GetxController {
-  final APIService _apiService = APIService();
+  final APIHelper _apiService = APIHelper();
   final isLoading = false.obs;
 
   void forgotPassword(String email) async {
