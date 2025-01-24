@@ -21,7 +21,7 @@ class APIService {
     }
   }
 
-  Future<void> addCourse(
+  Future<CourseModel> addCourse(
     String subject,
     String title,
     String overview,
@@ -42,7 +42,7 @@ class APIService {
     });
     final response = await _apiHelper.post(Endpoints.teachersAddCourse, data);
     if (response.statusCode == 201) {
-      return;
+      return CourseModel.fromJson(response.body);
     } else {
       throw Exception("REQUEST BAD");
     }

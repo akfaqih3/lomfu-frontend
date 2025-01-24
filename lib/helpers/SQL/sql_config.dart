@@ -14,6 +14,7 @@ class SqlConfig {
   static Future _onCreate(Database db, int version) async {
     await db.execute(SqlKeys.createCourseTable);
     await db.execute(SqlKeys.createAsyncQueueTable);
+    await db.execute(SqlKeys.createSubjectTable);
     print("Database created");
   }
 }

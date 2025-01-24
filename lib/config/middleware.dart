@@ -16,7 +16,7 @@ class AuthMiddleware extends GetMiddleware {
       if (accessToken == null) {
         Get.offAllNamed(Pages.login);
       } else {
-        Get.offAllNamed(Pages.courseList);
+        // Get.offAllNamed(Pages.courseList);
       }
     }
   }
