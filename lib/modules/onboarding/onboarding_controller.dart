@@ -1,10 +1,17 @@
 import 'package:get/get.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
+import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
+import 'package:lomfu_app/modules/home/models/subject_model.dart';
 
 class OnboardingController extends GetxController {
   final currentPage = 0.obs;
 
+  @override
+  void onInit() async {
+    super.onInit();
+    await Get.find<HomeController>();
+  }
 
   final List<Map<String, String>> onboardingData = [
     {

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
+import 'package:lomfu_app/helpers/network_helper.dart';
 import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
 import 'package:lomfu_app/modules/widgets/bottom_navigation_bar.dart';
@@ -125,8 +126,8 @@ class CourseListPage extends GetView<CourseController> {
       controller.titleEditTextController.text = course.title;
       controller.overviewEditTextController.text = course.overview;
       controller.selectedSubject = controller.subjects
-          .firstWhereOrNull ((element) => element.title == course.subject)?.slug;
-
+          .firstWhereOrNull((element) => element.title == course.subject)
+          ?.slug;
     }
     Future<void> _pickImage() async {
       final pickedFile =
@@ -224,7 +225,7 @@ class CourseListPage extends GetView<CourseController> {
           if (course == null) {
             controller.addCourse();
           } else {
-            controller.updateCourse(course.id);
+            controller.updateCourse(course.localId, course.serverId);
           }
           Get.back();
         }
@@ -240,7 +241,7 @@ class CourseListPage extends GetView<CourseController> {
           ElevatedButton(
             child: Text("Yes"),
             onPressed: () {
-              controller.deleteCourse(course.id);
+              controller.deleteCourse(course.localId, course.serverId);
               Get.back<bool>(result: true);
             },
           ),

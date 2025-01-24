@@ -14,37 +14,81 @@ class SQLService {
         response.length, (index) => CourseModel.fromSql(response[index]));
   }
 
-  Future<int> createCourse(
-      String subject, String title, String overview, File? photo) async {
+  Future<int> createCourse(String subject, String title, String overview,
+      num? serverId, num? ownerId, File? photo) async {
     final photoBytes = photo == null ? null : await photo.readAsBytes();
 
     final id = await _dbHelper.create(SqlKeys.courseTable, {
+      SqlKeys.courseServerID: serverId,
+      SqlKeys.courseOwnerID: ownerId,
       SqlKeys.courseSubject: subject,
       SqlKeys.courseTitle: title,
       SqlKeys.courseOverview: overview,
       SqlKeys.coursePhoto: photoBytes,
       SqlKeys.courseCreatedAt: DateTime.now().toString(),
     });
-    return id;
-  }
 
-  Future<void> updateCourse(int id, String subject, String title,
-      String overview, File? photo) async {
-    final photoBytes = photo == null ? null : await photo.readAsBytes();
-    await _dbHelper.update(
-        SqlKeys.courseTable,
-        {
+    if (serverId == 0) {
+      await _dbHelper.create(SqlKeys.syncQueueTable, {
+        SqlKeys.syncQueueType: SqlKeys.syncQueueTypeAddCourse,
+        SqlKeys.syncQueueData: {
+          SqlKeys.courseLocalID: id,
           SqlKeys.courseSubject: subject,
           SqlKeys.courseTitle: title,
           SqlKeys.courseOverview: overview,
-          if (photoBytes != null) SqlKeys.coursePhoto: photoBytes,
-          SqlKeys.courseCreatedAt: DateTime.now().toString(),
-        },
-        where: "${SqlKeys.courseID} = $id",);
+          SqlKeys.coursePhoto: photo != null ? photo.path : null,
+        }.toString(),
+        SqlKeys.syncQueueCreatedAt: DateTime.now().toString(),
+      });
+    }
+
+    return id;
   }
 
-  Future<void> deleteCourse(int id) async {
-    await _dbHelper.delete(SqlKeys.courseTable,
-        where: "${SqlKeys.courseID} = $id");
+  Future<void> updateCourse(num? localId, num? serverID, String subject,
+      String title, String overview, bool isUpdated, File? photo) async {
+    final photoBytes = photo == null ? null : await photo.readAsBytes();
+    await _dbHelper.update(
+      SqlKeys.courseTable,
+      {
+        SqlKeys.courseSubject: subject,
+        SqlKeys.courseTitle: title,
+        SqlKeys.courseOverview: overview,
+        if (photoBytes != null) SqlKeys.coursePhoto: photoBytes,
+        SqlKeys.courseCreatedAt: DateTime.now().toString(),
+      },
+      where: "${SqlKeys.courseLocalID} = $localId",
+    );
+
+    if (!isUpdated && serverID != 0) {
+      await _dbHelper.create(SqlKeys.syncQueueTable, {
+        SqlKeys.syncQueueType: SqlKeys.syncQueueTypeUpdateCourse,
+        SqlKeys.syncQueueData: {
+          SqlKeys.courseLocalID: localId,
+          SqlKeys.courseOwnerID: serverID ?? 0.0,
+          SqlKeys.courseServerID: serverID,
+          SqlKeys.courseSubject: subject,
+          SqlKeys.courseTitle: title,
+          SqlKeys.courseOverview: overview,
+          if (photo != null) SqlKeys.coursePhoto: photo.path,
+          SqlKeys.courseCreatedAt: DateTime.now().toString(),
+        }.toString(),
+      });
+    }
+  }
+
+  Future<void> deleteCourse(num? id, num? serverID, bool isDeleted) async {
+    await _dbHelper.delete(
+      SqlKeys.courseTable,
+      where: "${SqlKeys.courseLocalID} = $id",
+    );
+    if (!isDeleted && serverID != 0) {
+      await _dbHelper.create(SqlKeys.syncQueueTable, {
+        SqlKeys.syncQueueType: SqlKeys.syncQueueTypeDeleteCourse,
+        SqlKeys.syncQueueData: {
+          SqlKeys.courseServerID: serverID,
+        }.toString(),
+      });
+    }
   }
 }
