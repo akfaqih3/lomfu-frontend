@@ -3,22 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lomfu_app/modules/auth/controllers/login_controller.dart';
+import 'package:lomfu_app/modules/onboarding/onboarding_controller.dart';
 
-class AuthMiddleware extends GetMiddleware {
+class AuthMiddleware extends GetMiddleware  {
   @override
-  redirect(String? route) async {
-    final isFirstOpen = await GetStorage().read('isFirstOpen') ?? true;
-    if (isFirstOpen) {
-      GetStorage().write('isFirstOpen', false);
-      // return Pages.onboarding;
-      Get.offAllNamed(Pages.onboarding);
+  redirect(String? route)  {
+    final loginServcie = Get.find<LoginController>();
+    if (loginServcie.accessToken == null) {
+      return null;
     } else {
-      final accessToken = await TokenStorage.getAccessToken();
-      if (accessToken == null) {
-        Get.offAllNamed(Pages.login);
-      } else {
-        Get.offAllNamed(Pages.courseList);
-      }
+      return RouteSettings(name: route ?? Pages.home);
+    }
+  }
+}
+
+class OnboardingMiddleware extends GetMiddleware {
+  @override
+  RouteSettings? redirect(String? route) {
+    final isFirstOpen = Get.find<OnboardingController>().isFirstOpen;
+    if (isFirstOpen) {
+      return null;
+    } else {
+      return RouteSettings(name: Pages.home);
     }
   }
 }

@@ -1,22 +1,26 @@
-import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/SQL/db_helper.dart';
 import 'package:lomfu_app/SQL/sql_consts.dart';
-import 'package:lomfu_app/config/routes.dart';
-import 'package:lomfu_app/helpers/token_storage.dart';
 import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
 import 'package:lomfu_app/modules/home/models/subject_model.dart';
 
 class OnboardingController extends GetxController {
   final currentPage = 0.obs;
+  final isFirstOpen = GetStorage().read('isFirstOpen') ?? true;
 
   @override
   void onInit() async {
     super.onInit();
     await saveSubjects();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    GetStorage().write('isFirstOpen', false);
   }
 
   final List<Map<String, String>> onboardingData = [

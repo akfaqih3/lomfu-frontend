@@ -7,8 +7,9 @@ import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/API/api_exceptions.dart';
 
 class LoginController extends GetxController {
-  final APIHelper _apiService = APIHelper();
+  final APIHelper _apiService = Get.find<APIHelper>();
   final isLoading = false.obs;
+  final isAuth = false.obs;
 
   String? accessToken;
   String? refreshToken;
@@ -16,11 +17,15 @@ class LoginController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    accessToken = await TokenStorage.getAccessToken();
-    refreshToken = await TokenStorage.getRefreshToken();
+    await _loadTokens();
     if (accessToken != null) {
       Get.offAllNamed(Pages.home);
     }
+  }
+
+  Future<void> _loadTokens() async {
+    accessToken = await TokenStorage.getAccessToken();
+    refreshToken = await TokenStorage.getRefreshToken();
   }
 
   void login(String email, String password) async {
@@ -67,7 +72,7 @@ class LoginController extends GetxController {
 
 refreshToken() async {
   try {
-  final APIHelper _apiService = APIHelper();
+    final APIHelper _apiService = APIHelper();
     final refreshToken = await TokenStorage.getRefreshToken();
 
     final response = await _apiService.post(Endpoints.refreshToken, {
