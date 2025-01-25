@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:lomfu_app/API/api_const.dart ';
-import 'package:lomfu_app/helpers/SQL/sql_consts.dart';
+import 'package:lomfu_app/SQL/sql_consts.dart';
 
 class CourseModel {
   final int? localId;

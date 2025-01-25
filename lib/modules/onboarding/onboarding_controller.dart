@@ -1,4 +1,10 @@
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lomfu_app/API/api_const.dart';
+import 'package:lomfu_app/SQL/db_helper.dart';
+import 'package:lomfu_app/SQL/sql_consts.dart';
 import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
 import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
@@ -10,7 +16,7 @@ class OnboardingController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await Get.find<HomeController>();
+    await saveSubjects();
   }
 
   final List<Map<String, String>> onboardingData = [
@@ -32,4 +38,20 @@ class OnboardingController extends GetxController {
           "Study according to the study plan, make study more motivated",
     },
   ];
+
+  // save subjects to local storage
+  Future<void> saveSubjects() async {
+    final _dbHelper = Get.find<DbHelper>();
+    final subjects = await Get.find<HomeController>().getSubjects();
+
+    for (SubjectModel subjectModel in subjects) {
+      final photo = baseUrl + subjectModel.photo!.replaceFirst("/", "");
+      _dbHelper.create(SqlKeys.subjectTable, {
+        SqlKeys.subjectTitle: subjectModel.title,
+        SqlKeys.subjectSlug: subjectModel.slug,
+        SqlKeys.subjectPhoto: photo,
+        SqlKeys.subjectCoursesTotal: subjectModel.coursestotal,
+      });
+    }
+  }
 }

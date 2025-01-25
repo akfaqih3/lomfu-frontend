@@ -32,7 +32,10 @@ class AppRoutes {
   static List<GetPage> getPages = [
     GetPage(name: Pages.splash, page: () => SplashPage()),
     GetPage(name: Pages.onboarding, page: () => OnboardingPage()),
-    GetPage(name: Pages.home, page: () => HomePage()),
+    GetPage(
+        name: Pages.home,
+        page: () => HomePage(),
+        middlewares: [AuthMiddleware()]),
     GetPage(name: Pages.login, page: () => LoginPage()),
     GetPage(name: Pages.signUp, page: () => SignUpPage()),
     GetPage(name: Pages.confirmEmail, page: () => ConfirmEmailPage()),

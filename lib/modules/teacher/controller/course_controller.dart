@@ -6,7 +6,7 @@ import 'package:lomfu_app/modules/teacher/models/course_model.dart';
 
 import 'package:lomfu_app/API/api_exceptions.dart';
 import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
-import 'package:lomfu_app/helpers/SQL/db_helper.dart';
+import 'package:lomfu_app/SQL/db_helper.dart';
 import 'package:lomfu_app/modules/teacher/services/api_service.dart';
 import 'package:lomfu_app/modules/teacher/services/sql_service.dart';
 import 'package:lomfu_app/helpers/sync/sync_queu.dart';
@@ -18,21 +18,19 @@ class CourseController extends GetxController {
   final courselist = RxList<CourseModel>();
   final loading = false.obs;
   
-
-  var subjects = Get.find<HomeController>().subjects;
+  var subjects = Get.find<HomeController>().subjects ;
   var selectedSubject;
   var titleEditTextController = TextEditingController();
   var overviewEditTextController = TextEditingController();
   var subjectEditTextController = TextEditingController();
   Rx<File?> courseImage = Rx<File?>(null);
 
-  final DbHelper _dbHelper = DbHelper();
+  final syncQueu = Get.find<SyncQueu>();
 
   @override
   void onInit() async {
     super.onInit();
     await fetchCourses();
-    final syncQueu = Get.find<SyncQueu>();
   }
 
   Future<void> fetchCourses() async {

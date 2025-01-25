@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:get/get.dart';
+import 'package:lomfu_app/API/api_exceptions.dart';
 import 'package:lomfu_app/helpers/network_helper.dart';
-import 'package:lomfu_app/helpers/SQL/sql_consts.dart';
-import 'package:lomfu_app/helpers/SQL/db_helper.dart';
+import 'package:lomfu_app/SQL/sql_consts.dart';
+import 'package:lomfu_app/SQL/db_helper.dart';
 import 'package:lomfu_app/modules/teacher/models/course_model.dart';
 import 'package:lomfu_app/modules/teacher/services/api_service.dart';
 import 'package:lomfu_app/API/api_helper.dart';
@@ -9,7 +13,7 @@ import 'package:lomfu_app/API/api_helper.dart';
 //this class will be used to sync data from local to server by reading sync queue table
 
 class SyncQueu extends GetxService {
-  final DbHelper _dbHelper = DbHelper();
+  final DbHelper _dbHelper = Get.find<DbHelper>();
   final APIService _apiService = APIService();
 
   @override
@@ -34,13 +38,13 @@ class SyncQueu extends GetxService {
   Future<void> syncData() async {
     try {
       final response = await fetchSyncQueue();
-      
+
       for (var data in response) {
         final type = data[SqlKeys.syncQueueType];
-        final dataMap = data[SqlKeys.syncQueueData];
+        final dataMap = jsonDecode(data[SqlKeys.syncQueueData]);
         await _processSyncQueueItem(data[SqlKeys.syncQueueID], type, dataMap);
       }
-      Get.snackbar("Success", "Data synced");
+      Get.snackbar("Success", "Data synced!!!");
     } catch (e) {
       Get.snackbar("Error", "Something went wrong");
       print(e);
@@ -52,7 +56,14 @@ class SyncQueu extends GetxService {
     try {
       switch (type) {
         case SqlKeys.syncQueueTypeAddCourse:
-          await _createCourse(dataMap);
+          final response = await _createCourse(dataMap);
+          await _dbHelper.update(
+              SqlKeys.courseTable,
+              {
+                SqlKeys.courseServerID: response.serverId,
+              },
+              where:
+                  "${SqlKeys.courseLocalID} = ${dataMap[SqlKeys.courseLocalID]}");
           break;
         case SqlKeys.syncQueueTypeUpdateCourse:
           await _updateCourse(dataMap);
@@ -66,8 +77,8 @@ class SyncQueu extends GetxService {
       }
       // If successful, delete the item from the sync queue
       await _deleteSyncQueueItem(id);
-    } catch (e) {
-      print(e);
+    } on ApiExceptions catch (e) {
+      print(e.error.message);
       Get.snackbar("Error", "Failed to process sync queue item");
     }
   }
@@ -83,21 +94,28 @@ class SyncQueu extends GetxService {
       _apiService.deleteCourse(dataMap[SqlKeys.courseServerID]);
 
   Future<void> _updateCourse(dataMap) {
+    // get file from path
+    final photo = dataMap[SqlKeys.coursePhoto] == null
+        ? null
+        : File(dataMap[SqlKeys.coursePhoto]);
     return _apiService.updateCourse(
       dataMap[SqlKeys.courseServerID],
       dataMap[SqlKeys.courseSubject],
       dataMap[SqlKeys.courseTitle],
       dataMap[SqlKeys.courseOverview],
-      dataMap[SqlKeys.coursePhoto],
+      photo,
     );
   }
 
   Future<CourseModel> _createCourse(dataMap) {
+    final photo = dataMap[SqlKeys.coursePhoto] == null
+        ? null
+        : File(dataMap[SqlKeys.coursePhoto]);
     return _apiService.addCourse(
       dataMap[SqlKeys.courseSubject],
       dataMap[SqlKeys.courseTitle],
       dataMap[SqlKeys.courseOverview],
-      dataMap[SqlKeys.coursePhoto],
+      photo,
     );
   }
 }

@@ -10,13 +10,14 @@ class AuthMiddleware extends GetMiddleware {
     final isFirstOpen = await GetStorage().read('isFirstOpen') ?? true;
     if (isFirstOpen) {
       GetStorage().write('isFirstOpen', false);
-      return Pages.onboarding;
+      // return Pages.onboarding;
+      Get.offAllNamed(Pages.onboarding);
     } else {
       final accessToken = await TokenStorage.getAccessToken();
       if (accessToken == null) {
         Get.offAllNamed(Pages.login);
       } else {
-        // Get.offAllNamed(Pages.courseList);
+        Get.offAllNamed(Pages.courseList);
       }
     }
   }

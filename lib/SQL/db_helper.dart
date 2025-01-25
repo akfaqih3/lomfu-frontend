@@ -1,8 +1,17 @@
+import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
+
 import 'sql_config.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DbHelper {
+class DbHelper extends GetxService {
   static Database? _dataBase;
+
+
+  @override
+  void onInit() async {
+    super.onInit();
+    _dataBase = await SqlConfig.initDataBase();
+  }
 
   Future<Database?> get dataBase async {
     if (_dataBase == null) {

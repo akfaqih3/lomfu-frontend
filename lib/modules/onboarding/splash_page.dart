@@ -14,7 +14,7 @@ class SplashPage extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     Future.delayed(const Duration(milliseconds: 500), () {
-      Get.offNamed(Pages.courseList);
+      Get.offNamed(Pages.home);
     });
 
     return Scaffold(

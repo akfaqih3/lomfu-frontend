@@ -1,12 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:lomfu_app/helpers/SQL/db_helper.dart';
-import 'package:lomfu_app/helpers/SQL/sql_consts.dart';
+import 'package:get/get.dart';
+import 'package:lomfu_app/SQL/db_helper.dart';
+import 'package:lomfu_app/SQL/sql_consts.dart';
 import 'package:lomfu_app/modules/teacher/models/course_model.dart';
-import 'package:sqflite/sqflite.dart';
 
 class SQLService {
-  final DbHelper _dbHelper = DbHelper();
+  final DbHelper _dbHelper =Get.find<DbHelper>();
 
   Future<List<CourseModel>> getCourses() async {
     final response = await _dbHelper.read(SqlKeys.courseTable);
@@ -31,13 +32,13 @@ class SQLService {
     if (serverId == 0) {
       await _dbHelper.create(SqlKeys.syncQueueTable, {
         SqlKeys.syncQueueType: SqlKeys.syncQueueTypeAddCourse,
-        SqlKeys.syncQueueData: {
+        SqlKeys.syncQueueData: jsonEncode({
           SqlKeys.courseLocalID: id,
           SqlKeys.courseSubject: subject,
           SqlKeys.courseTitle: title,
           SqlKeys.courseOverview: overview,
           SqlKeys.coursePhoto: photo != null ? photo.path : null,
-        }.toString(),
+        }),
         SqlKeys.syncQueueCreatedAt: DateTime.now().toString(),
       });
     }
@@ -63,7 +64,7 @@ class SQLService {
     if (!isUpdated && serverID != 0) {
       await _dbHelper.create(SqlKeys.syncQueueTable, {
         SqlKeys.syncQueueType: SqlKeys.syncQueueTypeUpdateCourse,
-        SqlKeys.syncQueueData: {
+        SqlKeys.syncQueueData: jsonEncode({
           SqlKeys.courseLocalID: localId,
           SqlKeys.courseOwnerID: serverID ?? 0.0,
           SqlKeys.courseServerID: serverID,
@@ -71,8 +72,8 @@ class SQLService {
           SqlKeys.courseTitle: title,
           SqlKeys.courseOverview: overview,
           if (photo != null) SqlKeys.coursePhoto: photo.path,
-          SqlKeys.courseCreatedAt: DateTime.now().toString(),
-        }.toString(),
+        }),
+        SqlKeys.courseCreatedAt: DateTime.now().toString()
       });
     }
   }
@@ -85,9 +86,10 @@ class SQLService {
     if (!isDeleted && serverID != 0) {
       await _dbHelper.create(SqlKeys.syncQueueTable, {
         SqlKeys.syncQueueType: SqlKeys.syncQueueTypeDeleteCourse,
-        SqlKeys.syncQueueData: {
+        SqlKeys.syncQueueData: jsonEncode({
           SqlKeys.courseServerID: serverID,
-        }.toString(),
+        }),
+        SqlKeys.syncQueueCreatedAt: DateTime.now().toString(),
       });
     }
   }
