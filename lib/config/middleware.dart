@@ -8,7 +8,7 @@ import 'package:lomfu_app/modules/onboarding/onboarding_controller.dart';
 
 class AuthMiddleware extends GetMiddleware  {
   @override
-  redirect(String? route)  {
+  RouteSettings? redirect(String? route) {
     final loginServcie = Get.find<LoginController>();
     if (loginServcie.accessToken == null) {
       return null;
