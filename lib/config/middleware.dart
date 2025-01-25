@@ -11,7 +11,7 @@ class AuthMiddleware extends GetMiddleware  {
   RouteSettings? redirect(String? route) {
     final loginServcie = Get.find<LoginController>();
     if (loginServcie.accessToken == null) {
-      return null;
+      return const RouteSettings(name: Pages.login);
     } else {
       return RouteSettings(name: route ?? Pages.home);
     }
