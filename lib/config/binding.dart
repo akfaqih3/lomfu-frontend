@@ -17,7 +17,7 @@ class AppBinding implements Bindings {
     Get.lazyPut<LanguageService>(() => LanguageService(), fenix: true);
     Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
     Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
-    Get.lazyPut<OnboardingController>(() => OnboardingController());
+    Get.lazyPut<OnboardingController>(() => OnboardingController(),fenix: true);
     Get.lazyPut<CourseController>(() => CourseController(), fenix: true);
     
     Get.lazyPut<APIHelper>(() => APIHelper(), fenix: true);

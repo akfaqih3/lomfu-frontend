@@ -118,7 +118,10 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(width: 20),
                     SocialLoginButton(
                       icon: Icons.g_mobiledata,
-                      onPressed: () {},
+                      onPressed: () {
+                        openGoogleLoginDialog();
+                        
+                      },
                       color: Colors.red,
                     ),
                   ],
@@ -136,4 +139,9 @@ class LoginPage extends StatelessWidget {
       _controller.login(emailController.text, passwordController.text);
     }
   }
+
+  void openGoogleLoginDialog() async {
+    await _controller.openGoogleLogin();
+  }
+
 }

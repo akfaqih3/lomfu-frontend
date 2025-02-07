@@ -14,7 +14,9 @@ class OnboardingController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await saveSubjects();
+    if (isFirstOpen) {
+      await saveSubjects();
+    }
   }
 
   @override

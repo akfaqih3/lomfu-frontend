@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
+import 'package:lomfu_app/modules/auth/controllers/login_controller.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/themes/theme_service.dart';
 import 'package:lomfu_app/home.dart';
@@ -24,7 +25,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AppBar(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +49,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   AppTheme.toggleMode();
                 },
               ),
-              
               InkWell(
                 child: DropdownButton(
                   icon: const Icon(Icons.language, color: AppColors.white),
@@ -68,7 +67,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              SizedBox(width: 20),
+              InkWell(
+                child: Icon(
+                  Icons.logout,
+                  color: AppColors.white,
+                ),
+                onTap: () {
+                  Get.find<LoginController>().logout();
+                },
+              ),
             ],
           )
         ],

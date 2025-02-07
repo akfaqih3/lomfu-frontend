@@ -31,14 +31,23 @@ class AppRoutes {
   @override
   static List<GetPage> getPages = [
     GetPage(name: Pages.splash, page: () => SplashPage()),
-    GetPage(name: Pages.onboarding, page: () => OnboardingPage(), middlewares: [OnboardingMiddleware()]),
+    GetPage(
+        name: Pages.onboarding,
+        page: () => OnboardingPage(),
+        middlewares: [OnboardingMiddleware()]),
     GetPage(name: Pages.home, page: () => HomePage()),
     GetPage(name: Pages.login, page: () => LoginPage()),
     GetPage(name: Pages.signUp, page: () => SignUpPage()),
     GetPage(name: Pages.confirmEmail, page: () => ConfirmEmailPage()),
     GetPage(name: Pages.forgotPassword, page: () => ForgotPasswordPage()),
     GetPage(name: Pages.passwordReset, page: () => PasswordResetPage()),
-    GetPage(name: Pages.courseList, page: () => CourseListPage(), middlewares: [AuthMiddleware()]),
-    GetPage(name: Pages.courseDetails, page: () => CourseDetailsPage(), middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Pages.courseList,
+        page: () => CourseListPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Pages.courseDetails,
+        page: () => CourseDetailsPage(),
+        middlewares: [AuthMiddleware()]),
   ];
 }
