@@ -44,7 +44,7 @@ class SqlKeys {
       "CREATE TABLE $courseTable ($courseLocalID INTEGER PRIMARY KEY, $courseServerID INTEGER NULL, $courseOwnerID INTEGER NULL, $courseTitle TEXT, $courseSubject TEXT, $courseOverview TEXT, $coursePhoto BLOB, $courseCreatedAt TEXT)";
 
   static const String createSubjectTable =
-      "CREATE TABLE $subjectTable ($subjectId INTEGER PRIMARY KEY,  $subjectTitle TEXT, $subjectSlug TEXT, $subjectCoursesTotal INTEGER)";
+      "CREATE TABLE $subjectTable ($subjectId INTEGER PRIMARY KEY,  $subjectTitle TEXT, $subjectSlug TEXT,$subjectPhoto BLOB NULL, $subjectCoursesTotal INTEGER)";
 
   static const String createAsyncQueueTable =
       "CREATE TABLE $syncQueueTable ($syncQueueID INTEGER PRIMARY KEY, $syncQueueType TEXT, $syncQueueData TEXT, $syncQueueCreatedAt TEXT)";

@@ -4,6 +4,7 @@ import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
 import 'package:lomfu_app/home.dart';
 import 'package:lomfu_app/helpers/localizition/language_service.dart';
+import 'package:lomfu_app/modules/auth/controllers/login_controller.dart';
 import 'package:lomfu_app/themes/theme_service.dart';
 
 class SplashPage extends StatelessWidget {
@@ -11,10 +12,11 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLanguage = Get.find<LanguageService>();
     AppTheme = Get.find<ThemeService>();
+    loginController = Get.find<LoginController>();
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     Future.delayed(const Duration(milliseconds: 500), () {
-      Get.offNamed(Pages.courseList);
+      Get.offNamed(Pages.onboarding);
     });
 
     return Scaffold(

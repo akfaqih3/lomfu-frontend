@@ -29,14 +29,28 @@ Map<String, String> ar = {
   lblNoSubjects: 'لا توجد مواد',
   lblNoCourses: 'لا توجد دورات',
   lblLearning: 'التعلم',
+  lblNewCourse: 'دورة جديدة',
+  lblEditCourse: 'تعديل الدورة',
+  lblchooseCoursePhoto: 'اختر صورة الدورة',
+  lblEditPhoto: 'تعديل الصورة',
+  lblNoPhotoAvailable: 'لا تتوفر صورة',
+  lblNoPhotoSelected: 'لم يتم اختيار صورة',
+  lblDeleteCourse: 'حذف الدورة',
+  lblAreYouSureYouWantToDeleteThisCourse:
+      'هل أنت متأكد أنك تريد حذف هذه الدورة؟',
+  lblError: 'خطأ',
 
+  // hnt
   hntEmail: 'البريد الإلكتروني',
   hntPassword: 'كلمة المرور',
   hntConfirmPassword: 'تأكيد كلمة المرور',
   hntName: 'الاسم',
   hntRole: 'الدور',
   hntPhone: 'الهاتف',
+  hntSelectSubject: 'اختر موضوع',
+  hntPleaseSelectASubject: 'الرجاء اختيار موضوع',
 
+  // btn
   btnNext: 'التالي',
   btnSkip: 'تخطي',
   btnLogin: 'تسجيل الدخول',
@@ -46,5 +60,10 @@ Map<String, String> ar = {
   btnSend: 'إرسال',
   btnSubmit: 'تقديم',
   btnVerify: 'تحقق',
-  
-};  
+  btnCancel: 'إلغاء',
+  btnDelete: 'حذف',
+  btnAdd: 'إضافة',
+  btnUpdate: 'تحديث',
+  btnYes: 'نعم',
+  btnNo: 'لا',
+};

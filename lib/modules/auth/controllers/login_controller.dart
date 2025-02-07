@@ -5,22 +5,30 @@ import 'package:lomfu_app/config/routes.dart';
 import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/API/api_exceptions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginController extends GetxController {
-  final APIHelper _apiService = APIHelper();
+  final APIHelper _apiService = Get.find<APIHelper>();
   final isLoading = false.obs;
+  final isAuth = false.obs;
 
   String? accessToken;
   String? refreshToken;
 
+
+
   @override
   void onInit() async {
-    super.onInit();
-    accessToken = await TokenStorage.getAccessToken();
-    refreshToken = await TokenStorage.getRefreshToken();
+    await _loadTokens();
     if (accessToken != null) {
       Get.offAllNamed(Pages.home);
     }
+    super.onInit();
+  }
+
+  Future<void> _loadTokens() async {
+    accessToken = await TokenStorage.getAccessToken();
+    refreshToken = await TokenStorage.getRefreshToken();
   }
 
   void login(String email, String password) async {
@@ -63,11 +71,27 @@ class LoginController extends GetxController {
       }
     } catch (e) {}
   }
+
+  Future<void> openGoogleLogin() async {
+    final authorizationUrl = Endpoints.createAuthorizationUrl;
+    final url = Uri.parse(authorizationUrl);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.platformDefault,
+        browserConfiguration: BrowserConfiguration(
+          showTitle: true,
+        ),
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }
 
 refreshToken() async {
   try {
-  final APIHelper _apiService = APIHelper();
+    final APIHelper _apiService = APIHelper();
     final refreshToken = await TokenStorage.getRefreshToken();
 
     final response = await _apiService.post(Endpoints.refreshToken, {

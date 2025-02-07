@@ -8,7 +8,7 @@ import 'package:lomfu_app/helpers/localizition/app_langs/keys.dart';
 import 'package:lomfu_app/helpers/network_helper.dart';
 import 'package:lomfu_app/modules/home/controllers/home_controller.dart';
 import 'package:lomfu_app/modules/teacher/controller/course_controller.dart';
-import 'package:lomfu_app/modules/widgets/bottom_navigation_bar.dart';
+import 'package:lomfu_app/widgets/bottom_navigation_bar.dart';
 import 'package:lomfu_app/themes/colors.dart';
 import 'package:lomfu_app/widgets/custom_app_bar.dart';
 import 'package:lomfu_app/widgets/cutom_text_field.dart';
@@ -138,7 +138,7 @@ class CourseListPage extends GetView<CourseController> {
     }
 
     Get.defaultDialog(
-      title: 'New Course',
+      title: (course == null) ? lblNewCourse.tr : lblEditCourse.tr,
       content: Obx(() {
         final subjects = controller.subjects;
 
@@ -158,9 +158,9 @@ class CourseListPage extends GetView<CourseController> {
                   onChanged: (value) {
                     controller.selectedSubject = value!;
                   },
-                  decoration: InputDecoration(labelText: 'Select Subject'),
+                  decoration: InputDecoration(labelText: hntSelectSubject.tr),
                   validator: (value) => value == null || value.isEmpty
-                      ? 'Please select a subject'
+                      ? hntPleaseSelectASubject.tr
                       : null,
                 ),
                 SizedBox(height: 10),
@@ -175,7 +175,7 @@ class CourseListPage extends GetView<CourseController> {
                 MaterialButton(
                   onPressed: _pickImage,
                   child: Text(
-                      (course == null) ? 'Choose Course photo' : 'edit photo'),
+                      (course == null) ? lblchooseCoursePhoto.tr : lblEditPhoto.tr),
                 ),
                 Obx(() {
                   return controller.courseImage.value != null
@@ -200,25 +200,25 @@ class CourseListPage extends GetView<CourseController> {
                                     // color: primaryColor,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: Text("No image available"),
+                                  child: Text(lblNoPhotoAvailable.tr),
                                 );
                               },
                             )
-                          : Text('No image selected');
+                          : Text(lblNoPhotoSelected.tr);
                 }),
               ],
             ),
           ),
         );
       }),
-      textCancel: 'Cancel',
-      textConfirm: (course == null) ? 'Add' : 'Update',
+      textCancel: btnCancel.tr,
+      textConfirm: (course == null) ? btnAdd.tr : btnUpdate.tr,
       onCancel: () {},
       onConfirm: () {
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
           if (controller.selectedSubject == null) {
-            Get.snackbar('Error', 'Please select a subject');
+            Get.snackbar(lblError.tr, hntPleaseSelectASubject.tr);
             return;
           }
 
@@ -235,18 +235,18 @@ class CourseListPage extends GetView<CourseController> {
 
   _deleteCourseDialog(CourseModel course) {
     Get.defaultDialog(
-        title: 'Delete Course',
-        content: Text("Are you sure you want to delete this course?"),
+        title: lblDeleteCourse.tr,
+        content: Text(lblAreYouSureYouWantToDeleteThisCourse.tr),
         actions: [
           ElevatedButton(
-            child: Text("Yes"),
+            child: Text(btnYes.tr),
             onPressed: () {
               controller.deleteCourse(course.localId, course.serverId);
               Get.back<bool>(result: true);
             },
           ),
           ElevatedButton(
-            child: Text("No"),
+            child: Text(btnNo.tr),
             onPressed: () {
               Get.back<bool>(result: false);
             },

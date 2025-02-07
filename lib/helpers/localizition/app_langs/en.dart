@@ -1,4 +1,3 @@
-
 import 'keys.dart';
 
 Map<String, String> en = {
@@ -21,7 +20,8 @@ Map<String, String> en = {
   lblArabicLang: 'Arabic',
   lblEnglishLang: 'English',
   lblEnterYourDetails: 'Enter your details below to create your account',
-  lblPolicyPrivacy: 'By creating an account, you agree to our Terms & Conditions.',
+  lblPolicyPrivacy:
+      'By creating an account, you agree to our Terms & Conditions.',
   lblVerifyEmail: 'Verify Email',
   lblCodeSentTo: 'Code is sent to',
   lblDontRecieveCode: 'Didn\'t receive the code?',
@@ -29,15 +29,29 @@ Map<String, String> en = {
   lblResetPassword: 'Reset Password',
   lblNoSubjects: 'No Subjects',
   lblNoCourses: 'No Courses',
-  lblLearning: 'Learning',  
+  lblLearning: 'Learning',
+  lblNewCourse: 'New Course',
+  lblEditCourse: 'Edit Course',
+  lblchooseCoursePhoto: 'Choose Course Photo',
+  lblEditPhoto: 'Edit Photo',
+  lblNoPhotoAvailable: 'No Photo Available',
+  lblNoPhotoSelected: 'No Photo Selected',
+  lblDeleteCourse: 'Delete Course',
+  lblAreYouSureYouWantToDeleteThisCourse:
+      'Are you sure you want to delete this course?',
+  lblError: 'Error',
 
+  // hnt
   hntEmail: 'Email',
   hntPassword: 'Password',
   hntConfirmPassword: 'Confirm Password',
   hntName: 'Name',
   hntRole: 'Role',
   hntPhone: 'Phone',
-  
+  hntSelectSubject: 'Select Subject',
+  hntPleaseSelectASubject: 'Please select a subject',
+
+  // btn
   btnNext: 'Next',
   btnSkip: 'Skip',
   btnLogin: 'Login',
@@ -47,4 +61,10 @@ Map<String, String> en = {
   btnSend: 'Send',
   btnSubmit: 'Submit',
   btnVerify: 'Verify',
+  btnCancel: 'Cancel',
+  btnDelete: 'Delete',
+  btnAdd: 'Add',
+  btnUpdate: 'Update',
+  btnYes: 'Yes',
+  btnNo: 'No',
 };

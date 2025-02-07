@@ -1,16 +1,20 @@
+import 'dart:io';
+
 import 'package:lomfu_app/API/api_const.dart';
-import 'package:lomfu_app/helpers/SQL/sql_consts.dart';
+import 'package:lomfu_app/SQL/sql_consts.dart';
 
 class SubjectModel {
   final String slug;
   final String title;
   final String? photo;
+  final File? photoBytes;
   final int? coursestotal;
 
   SubjectModel({
     required this.slug,
     required this.title,
     this.photo,
+    this.photoBytes,
     this.coursestotal,
   });
 

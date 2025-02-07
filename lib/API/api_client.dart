@@ -3,7 +3,6 @@ import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/API/api_exceptions.dart';
 import 'package:lomfu_app/helpers/token_storage.dart';
-import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/modules/auth/controllers/login_controller.dart';
 
 class APIClient extends GetConnect {

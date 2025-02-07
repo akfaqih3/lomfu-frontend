@@ -5,10 +5,9 @@ import 'package:get/get_connect/http/src/multipart/form_data.dart';
 import 'package:lomfu_app/API/api_helper.dart';
 import 'package:lomfu_app/API/api_const.dart';
 import 'package:lomfu_app/modules/teacher/models/course_model.dart';
-import 'package:lomfu_app/API/api_exceptions.dart';
 
 class APIService {
-  final APIHelper _apiHelper = APIHelper();
+  final APIHelper _apiHelper = Get.find<APIHelper>();
 
   Future<List<CourseModel>> getCourses() async {
     final response = await _apiHelper.get(Endpoints.teachersCourses);

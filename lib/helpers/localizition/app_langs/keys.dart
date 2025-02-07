@@ -1,10 +1,7 @@
-
-
 const String appName = 'appName';
 
 const String lblTeacher = 'Teacher';
 const String lblStudent = 'Student';
-
 
 const String lblWelcome = 'Welcome';
 const String lblHome = 'home';
@@ -31,7 +28,15 @@ const String lblResetPassword = 'reset_password';
 const String lblNoSubjects = 'no_subjects';
 const String lblNoCourses = 'no_courses';
 const String lblLearning = 'learning';
-
+const String lblNewCourse = 'new_course';
+const String lblEditCourse = 'edit_course';
+const String lblchooseCoursePhoto = 'choose_course_photo';
+const String lblEditPhoto = 'edit_photo';
+const String lblNoPhotoAvailable = 'no_photo_available';
+const String lblNoPhotoSelected = 'no_photo_selected';
+const String lblDeleteCourse = 'delete_course';
+const String lblAreYouSureYouWantToDeleteThisCourse = 'are_you_sure_you_want_to_delete_this_course';
+const String lblError = 'error';
 
 const String hntEmail = 'hint_email';
 const String hntPassword = 'hint_password';
@@ -39,6 +44,8 @@ const String hntConfirmPassword = 'hint_confirm_password';
 const String hntName = 'hint_name';
 const String hntRole = 'hint_role';
 const String hntPhone = 'hint_phone';
+const String hntSelectSubject = 'hint_select_subject';
+const String hntPleaseSelectASubject = 'hint_please_select_a_subject';
 
 
 const String btnNext = 'btn_next';
@@ -50,4 +57,9 @@ const String btnForgotPassword = 'btn_forgot_password';
 const String btnSend = 'btn_send';
 const String btnSubmit = 'btn_submit';
 const String btnVerify = 'btn_verify';
-
+const String btnCancel = 'btn_cancel';
+const String btnDelete = 'btn_delete';
+const String btnAdd = 'btn_add';
+const String btnUpdate = 'btn_update';
+const String btnYes = 'btn_yes';
+const String btnNo = 'btn_no';
